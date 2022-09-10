@@ -2,6 +2,8 @@
 int col = 10;
 int row = 10;
 
+Strip[] strips = new Strip[row];
+
 //to hold step size / distance between lines
 int stepx, stepy;
 
@@ -11,12 +13,15 @@ void setup() {
   //define step sizes
   stepx = width/col;
   stepy = height/row;
-
-  noLoop(); //identify that our program is going to go through the process one time
+  
+  for (int i = 0; i<strips.length; i++) {
+   strips[i] = new Strip(); //TODO 
+  }
+ // noLoop(); //identify that our program is going to go through the process one time
 }
 
 void draw() {
-
+/*
   for (int i=0; i < col; i++) {
     for (int j=0; j < row; j++) {
       
@@ -31,4 +36,5 @@ void draw() {
       rect(x,y, stepx, stepy);
     }
   }
+  */
 }
