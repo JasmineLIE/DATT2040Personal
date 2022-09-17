@@ -17,10 +17,11 @@ void setup() {
 }
 
 void draw() {
-  noStroke();
-  fill(0, 30);
+ 
+  fill(0, 30); //Fill for Rect
   rect(0, 0, width, height);
-  fill(255);
+  fill(255); //Fill for Ellipses
+
   for (int j = 0; j<num; j++) {
     //--Boundary Check--
     if (pos[j].x>width-(pos[j].z/2) || pos[j].x<pos[j].z/2) { //If the position of the ellipse exceeds the boundaries in relation to its size, so it bounces using the ellipse's edge
