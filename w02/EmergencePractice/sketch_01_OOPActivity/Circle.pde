@@ -64,7 +64,7 @@ class Circle {
           float midx, midy;
           midx = (x + otherCirc.x)/2; //calculates midpoint
           midy = (y + otherCirc.y)/2; 
-          stroke(0, 100);
+          stroke(random(255), random(255), random(255);
           noFill();
           overlap *= -1; 
           //4
