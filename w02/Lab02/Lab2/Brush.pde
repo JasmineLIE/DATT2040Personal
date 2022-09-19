@@ -10,6 +10,6 @@ class Brush {
   float triggerDistance = 25;
   
   Brush() {
-    
+    radius = random(25);
   }
 }
