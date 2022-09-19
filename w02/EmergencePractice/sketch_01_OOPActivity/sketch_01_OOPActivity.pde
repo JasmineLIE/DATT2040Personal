@@ -20,11 +20,11 @@ void draw() {
     println(_circleArr.length); //trace current number of circles to console window
   }
 void drawCircles() {
-  for (int i = 0; i<_num; i++) {
+ 
     Circle thisCirc = new Circle(); //create them conceptually in the memory
     thisCirc.drawMe();
     _circleArr = (Circle[])append(_circleArr, thisCirc);
-  }
+ 
 
 
 }
