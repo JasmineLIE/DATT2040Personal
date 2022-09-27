@@ -4,7 +4,7 @@ void mapSinY() { //three circles connected by a line that make a yo-yo, Kaleidos
   frameRate(60); //revert back to 60, useful for if having proceeded circlePulse();
   stroke(255);
 
-//---- Iner loop---
+//---- Inner loop---
   fill(150, 210, 123);
   pushMatrix() ;
   translate(height/2, width/2);

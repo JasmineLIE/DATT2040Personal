@@ -5,7 +5,7 @@ void wavesHack() {
   stroke(random(255), random(255), random(255));
   
 
-  for (int i = 0; i < width; i++) {
+  for (int i = 0; i < width; i++) { //each frame draw a sinewave spanning from the width of the screen
 
     float wlen1 = mouseX;
     float w1 = sin(i*wlen1)*50;
@@ -21,7 +21,7 @@ void wavesHack() {
 
     //keeps line nice
     if (lx < (width)-1) {
-      rect(i, height/2+waveadd, lx, ly);
+      rect(i, height/2+waveadd, lx, ly); 
       lx = i;
       ly = height/2+waveadd;
     } else {
