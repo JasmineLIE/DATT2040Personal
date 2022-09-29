@@ -23,6 +23,8 @@ void draw() {
    mapSinY(); 
   } else if (displayMode == "THREE") {
    wavesHack(); 
+  } else if (displayMode == "FOUR") {
+   spiral(); 
   }
 }
 void keyPressed() {
@@ -32,5 +34,7 @@ void keyPressed() {
    displayMode = "TWO"; 
   } else if (key == '3') {
    displayMode = "THREE"; 
+  } else if (key == '4') {
+   displayMode = "FOUR"; 
   }
 }
