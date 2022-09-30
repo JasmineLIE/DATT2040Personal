@@ -17,7 +17,7 @@ void setup(){
   
   for(int i = 0; i <particles; i++) {
     //PVector x,y --> random diameter, index
-   collide[i] = new Collider(new PVector(random(width), random(height)), random(20,30), i); 
+   collide[i] = new Collider(new PVector(random(width), random(height)), random(20,30), i, collide); 
   }
   
 }
@@ -26,6 +26,7 @@ void draw() {
  background(0); 
  
  for (Collider c : collide) {
+  c.collide();
   c.drawit(); 
   c.move();
   c.selected();
@@ -41,14 +42,49 @@ class Collider{
   
   //will be useful
   int id;
+  Collider[]others;
   
   //make a constructor
-  Collider(PVector locin, float di, int idi) {
+  Collider(PVector locin, float di, int idi, Collider[] oi) {
     loc = locin;
     diameter = di;
     id = idi;
-    
+    others = oi;
   }
+  
+  //collission and trajectory change
+  
+  void collide() {
+    for (int i = id+1; i < particles; i++) { //only checks other particles, could also have an if-statement that checks if the id is the same as i, and if so then do not execute the collision code
+      
+      PVector dxy1 = new PVector(loc.x, loc.y); //location of our current position
+      PVector dxy2 = new PVector(others[i].loc.x, others[i].loc.y);
+      
+      PVector sub = PVector.sub(dxy2, dxy1); //
+      
+      float distance = PVector.dist(dxy1, dxy2);
+      float minDist = (others[i].diameter + diameter)/2;
+      
+      if (distance < minDist) { //if its distances closes in with another ball
+        
+        //calculate
+        float angle = atan2(sub.y, sub.x); //consistently need to apply these forces to both x and y valuel returns an angle based on the distance
+        float targetX = loc.x + cos(angle)*minDist; //where we want to head towards
+        float targetY = loc.y + sin(angle)*minDist;
+        
+        float ax = (targetX - others[i].loc.x);
+        float ay = (targetY - others[i].loc.y);
+        
+        force.x -= ax;
+        force.y -= ay;
+        
+        others[i].force.x +=ax;
+        others[i].force.y += ay;
+      }
+    }
+  }
+  
+  //end of
   
     void move() {
     force.y+=gravity;
