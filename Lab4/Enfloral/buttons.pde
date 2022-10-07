@@ -2,11 +2,13 @@ class Buttons {
   PVector pos;
   int size;
   String id;
+  PImage img;
 
   Buttons (PVector pos, int size, String id) {
     this.pos = pos;
     this.size = size;
     this.id = id;
+   
   }
 
   void drawButton() {

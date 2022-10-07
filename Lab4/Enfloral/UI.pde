@@ -1,8 +1,8 @@
 PVector textBoxPos, itemBoxPos;
 PVector itemPos = new PVector(810, 530);
-String desc = "beginning";
+String desc = "";
 String item;
-int padding = 50;
+int padding = 40;
 int itemSize = 50;
 
 class UI {

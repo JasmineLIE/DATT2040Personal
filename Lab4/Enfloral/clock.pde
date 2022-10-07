@@ -1,5 +1,7 @@
 float angle;
 boolean magnetGone = false;
+String clockRoom1 = "Strange.  The clock still ticks.  What's keeping it stuck?";
+String clockRoom2 = "That sounds better; smooth and sound.  Pesky magnet.  \n I wonder who left that there.";
 void clockRoom() {
    int s = second();
   
@@ -7,12 +9,12 @@ void clockRoom() {
   stroke(255);
   noFill();
   pushMatrix();
-  translate(width/2, height/2);
+  translate(width/2, 200);
   strokeWeight(1);
   float rad = 150;
   circle(0,0,rad*2);
   
-  strokeWeight(34);
+  strokeWeight(20);
   stroke(252,238,33);
   float x = rad*cos(angle);
   float y = rad*sin(angle);
@@ -21,12 +23,13 @@ void clockRoom() {
   line(0, 0, x, y);
   popMatrix();
   
+strokeWeight(1);
   if (magnetGone) {
   if (s%2==0) angle += 0.005;
-  ui.setDesc("That takes care of it.  Pesky magnet."); 
+  ui.setDesc(clockRoom2);
   } else {
   
-  ui.setDesc("Despite the battery, the clock isn't working right...");
+  ui.setDesc(clockRoom1);
   }
 }
 
