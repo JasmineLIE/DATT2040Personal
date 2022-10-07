@@ -8,7 +8,7 @@ SoundFile bgMusic;
 String gameMode = "menu";
 UI ui;
 
-Buttons buttonStart, buttonClock, buttonLobby, buttonLounge, buttonTank;
+Buttons buttonStart, buttonClock, buttonLobby, buttonLounge, buttonTank, buttonDoor;
 
 Mover [] mover;
 int numMovers = 10;
@@ -26,9 +26,11 @@ void setup() {
   size (900, 600); 
   buttonStart = new Buttons(new PVector(100, 100), 100, "start");
   buttonClock = new Buttons(new PVector(700, 300), 100, "clockRoom");
-  buttonLobby = new Buttons(new PVector(width/2, height/2), 100, "lobby");
+  buttonLobby = new Buttons(new PVector(500, 500), 100, "lobby");
   buttonLounge = new Buttons(new PVector(400, 400), 100, "lounge");
   buttonTank = new Buttons (new PVector (200, 200), 100, "tank");
+  buttonDoor = new Buttons(new PVector (300, 300), 100, "door");
+
   ui = new UI();
   bgMusic = new SoundFile(this, "jazz.wav");
   bgMusic.loop();
@@ -51,6 +53,7 @@ void draw() {
   } else if (gameMode == "lobby") {
     background(0);
     text("LOBBY ROOM", 40, 40, 280, 320);
+    buttonDoor.run();
     buttonLounge.run();
   } else if (gameMode == "lounge") {
     background(0);
@@ -59,17 +62,18 @@ void draw() {
     buttonTank.run();
   } else if (gameMode == "tank") {
     background(0);
-      for (Mover m : mover) {
-    m.run(); 
-    PVector f = a.attract(m);
-    m.applyForce(f);
-  }
+    for (Mover m : mover) {
+      m.run(); 
+      PVector f = a.attract(m);
+      m.applyForce(f);
+    }
     text("IMAGINE", 40, 40, 280, 320);
-
 
     a.run();
     m.run();
     buttonLounge.run();
+  } else if (gameMode == "door"){
+    buttonLobby.run();
   }
 
 

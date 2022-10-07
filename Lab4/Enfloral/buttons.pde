@@ -13,6 +13,9 @@ class Buttons {
 
   void drawButton() {
     ellipse(pos.x, pos.y, size, size);
+    fill(0);
+    text(id, pos.x, pos.y);
+    fill(255);
   }
   void buttonClicked() {
 
