@@ -1,5 +1,5 @@
 float angle;
-boolean magnetGone = true;
+boolean magnetGone = false;
 void clockRoom() {
    int s = second();
   
@@ -23,5 +23,13 @@ void clockRoom() {
   
   if (magnetGone) {
   if (s%2==0) angle += 0.005;
-  } 
+  ui.setDesc("That takes care of it.  Pesky magnet."); 
+  } else {
+  
+  ui.setDesc("Despite the battery, the clock isn't working right...");
+  }
+}
+
+void keyPressed() {
+ magnetGone = true; 
 }

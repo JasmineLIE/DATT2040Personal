@@ -22,26 +22,23 @@ void setup() {
 
 void draw() {
   background(255);
-  buttonStart.run();
   
-  if (gameMode == "start") {
+  if (gameMode == "menu") {
+    buttonStart.run();
+  }
+  else if (gameMode == "start") {
     background(0);
     String s = "gaaaaah there is a MURDER.  You are a DETECTIVE.";
     fill(255);
     text(s, 40, 40, 280, 320);
     buttonClock.run();
   } else if (gameMode == "clockRoom") {
-   
+    
     clockRoom();
   }
-  
-  
-  if (gameMode != "start" && gameMode != "menu") {
-   ui.drawBoxes();
-  }
-  
-  
-  
-}
 
+
+  if (gameMode != "start" && gameMode != "menu") {
+    ui.run();
+  }
 }
