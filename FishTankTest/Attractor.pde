@@ -16,7 +16,7 @@ class Attractor {
 
 //Remember, we need to constrain the distance so that our circle doesn’t spin out of control.
 
-    distance = constrain(distance,5,25);
+    distance = constrain(distance,1,10);
  
  
     force.normalize();
