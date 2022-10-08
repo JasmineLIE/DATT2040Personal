@@ -4,7 +4,8 @@ class Attractor {
   float mass;
   PVector location;
   float G; //gravity
-
+  String tank1 = "These bugs are dangerous.  I can't dip my bare hand in.";
+  String tank2 = "Ah, the magic of magnets on a string.  Good thing I brought \n floss today.";
   Attractor() {
     location = new PVector(width/2, height/2);
     mass = 20;
@@ -38,6 +39,9 @@ class Attractor {
         location.x = mouseX-mass;
         location.y = mouseY-mass;
       }
+      ui.setDesc(tank1);
+    } else {
+     ui.setDesc(tank2); 
     }
 
  if (dist(mouseX, mouseY, height, height) > 600) {

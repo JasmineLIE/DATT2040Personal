@@ -1,10 +1,10 @@
 float angle;
 boolean magnetGone = false;
-String clockRoom1 = "Strange.  The clock still ticks.  What's keeping the hand stuck?";
-String clockRoom2 = "That sounds better; smooth and sound.  Pesky magnet.  \n I wonder who left that there.";
+
 void clockRoom() {
   int s = second();
-
+String clockRoom1 = "Strange.  The clock still ticks.  What's keeping the hand stuck?";
+String clockRoom2 = "That sounds better; smooth and sound.  Pesky magnet.  \n I wonder who left that there.";
   background(0);
   stroke(255);
   noFill();

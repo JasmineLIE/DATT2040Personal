@@ -10,18 +10,26 @@ UI ui;
 
 Buttons buttonStart, buttonClock, buttonLobby, buttonLounge, buttonTank, buttonDoor;
 
+Sunflower sf;
+
 Mover [] mover;
 int numMovers = 10;
 Attractor a;
 
+PImage boxUI, menu, button, start, lobby, sf1, sf2;
+SoundFile bgMusic;
+
 void setup() {
   size (900, 600); 
-  
 
   boxUI = loadImage("UIBox.png");
   menu = loadImage("menuScreen.png");
   button = loadImage("button.png");
   start = loadImage("start.png");
+  lobby = loadImage("lobby.png");
+  sf1 = loadImage("sf1.png");
+  sf2 = loadImage("sf2.png");
+  
   mover = new Mover[numMovers];
   for (int i = 0; i < numMovers; i++) {
     mover[i] = new Mover();
@@ -32,10 +40,11 @@ void setup() {
   buttonStart = new Buttons(new PVector(100, 500), 100, "Start!");
   buttonClock = new Buttons(new PVector(400, 300), 100, "Clock");
   buttonLobby = new Buttons(new PVector(700, 100), 100, "Lobby");
-  buttonLounge = new Buttons(new PVector(700,300), 100, "Lounge");
+  buttonLounge = new Buttons(new PVector(800,350), 100, "Lounge");
   buttonTank = new Buttons (new PVector (150, 200), 100, "Tank");
-  buttonDoor = new Buttons(new PVector (450, 200), 100, "Door");
+  buttonDoor = new Buttons(new PVector (600, 125), 100, "Door");
 
+  sf = new Sunflower();
   ui = new UI();
   bgMusic = new SoundFile(this, "jazz.wav");
   bgMusic.loop();
@@ -55,10 +64,11 @@ void draw() {
     clockRoom();
     buttonLounge.run();
   } else if (gameMode == "Lobby") {
-    background(0);
+    image(lobby, 0, 0);
 
     buttonDoor.run();
     buttonLounge.run();
+        sf.drawSF();
   } else if (gameMode == "Lounge") {
     background(0);
     ui.setDesc("");
@@ -66,6 +76,7 @@ void draw() {
     buttonLobby.run();
     buttonClock.run();
     buttonTank.run();
+
   } else if (gameMode == "Tank") {
     background(0);
     for (Mover m : mover) {
@@ -78,8 +89,8 @@ void draw() {
     a.run();
     buttonLounge.run();
   } else if (gameMode == "Door") {
-    background(0);
-    buttonLobby.run();
+    if (!hasKey && mousePressed) ui.setDesc("Locked tight."); 
+
   }
 
 
