@@ -2,10 +2,10 @@
 PVector textBoxPos, itemBoxPos;
 PVector itemPos = new PVector(810, 530);
 String desc = "";
-String item;
+String item ="";
 int padding = 50;
 int itemSize = 50;
-
+boolean itemDragged = false;
 class UI {
   void drawBoxes() {
     textBoxPos = new PVector(150, 490);
@@ -19,6 +19,8 @@ class UI {
   void drawItem() {
 
     ellipse(itemPos.x, itemPos.y, itemSize, itemSize);
+    fill(0);
+    text(item, itemPos.x, itemPos.y);
   }
   void setItem(String newItem) {
     item = newItem;
@@ -33,10 +35,12 @@ class UI {
       if (dist(mouseX, mouseY, itemPos.x, itemPos.y) <= itemSize + padding) {
         itemPos.x = mouseX;
         itemPos.y = mouseY;
+        itemDragged = true;
       }
     } else {
       itemPos.x = 810;
       itemPos.y = 530;
+      itemDragged = false;
     }
   }
 
@@ -44,5 +48,10 @@ class UI {
     drawBoxes();
     drawItem();
     dragItem();
+    getItem();
+  }
+  
+  public String getItem() {
+   return item; 
   }
 }

@@ -13,7 +13,6 @@ Buttons buttonStart, buttonClock, buttonLobby, buttonLounge, buttonTank, buttonD
 Mover [] mover;
 int numMovers = 10;
 Attractor a;
-Magnet m;
 
 void setup() {
   size (900, 600); 
@@ -28,15 +27,14 @@ void setup() {
     mover[i] = new Mover();
   }
   a = new Attractor();
-  m = new Magnet();
   textSize(16);
 
-  buttonStart = new Buttons(new PVector(100, 100), 100, "Start!");
-  buttonClock = new Buttons(new PVector(700, 300), 100, "Clock");
+  buttonStart = new Buttons(new PVector(100, 500), 100, "Start!");
+  buttonClock = new Buttons(new PVector(400, 300), 100, "Clock");
   buttonLobby = new Buttons(new PVector(700, 100), 100, "Lobby");
-  buttonLounge = new Buttons(new PVector(400, 400), 100, "Lounge");
-  buttonTank = new Buttons (new PVector (200, 200), 100, "Tank");
-  buttonDoor = new Buttons(new PVector (300, 300), 100, "Door");
+  buttonLounge = new Buttons(new PVector(700,300), 100, "Lounge");
+  buttonTank = new Buttons (new PVector (150, 200), 100, "Tank");
+  buttonDoor = new Buttons(new PVector (450, 200), 100, "Door");
 
   ui = new UI();
   bgMusic = new SoundFile(this, "jazz.wav");
@@ -78,7 +76,6 @@ void draw() {
     text("IMAGINE", 40, 40, 280, 320);
 
     a.run();
-    m.run();
     buttonLounge.run();
   } else if (gameMode == "Door") {
     background(0);

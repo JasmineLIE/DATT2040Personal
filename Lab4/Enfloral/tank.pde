@@ -1,36 +1,5 @@
-boolean magnetGrabbed = false;
-class Magnet {
-  float size;
-  PVector pos;
 
-  Magnet() {
-    size = 50;
-    pos = new PVector (800, 400);
-  }
-
-  void grab() {
-    if (dist(mouseX, mouseY, pos.x, pos.y) <= size/2) {
-
-      if (mousePressed) {
-        magnetGrabbed = true;
-        pos.x = mouseX;
-        pos.y = mouseY;
-      } else {
-        magnetGrabbed = false;
-      }
-    }
-  }
-
-  void drawMagnet() {
-    ellipse(pos.x, pos.y, size, size);
-  }
-
-  void run() {
-    grab();
-    drawMagnet();
-  }
-}
-
+boolean pinRetrieved = false;
 class Attractor { 
   float mass;
   PVector location;
@@ -47,7 +16,7 @@ class Attractor {
 
     float distance = force.mag();
 
-    //Remember, we need to constrain the distance so that our circle doesn’t spin out of control.
+   
 
     distance = constrain(distance, 5, 15);
 
@@ -59,15 +28,26 @@ class Attractor {
   }
 
   void display() {
-    stroke(0);
-    fill(175, 200);
-    ellipse(location.x, location.y, mass*2, mass*2);
+    if (!pinRetrieved) {
+      stroke(0);
+      fill(175, 200);
+      ellipse(location.x, location.y, mass*2, mass*2);
 
-    if (magnetGrabbed && dist(location.x, location.y, m.pos.x, m.pos.y) <= mass*2) {
+      if (itemDragged && ui.getItem() == "magnet" && dist(location.x, location.y, itemPos.x, itemPos.y) <= mass*2) {
 
-      location.x = mouseX-mass;
-      location.y = mouseY-mass;
+        location.x = mouseX-mass;
+        location.y = mouseY-mass;
+      }
     }
+
+ if (dist(mouseX, mouseY, height, height) > 600) {
+   if (mousePressed && itemDragged) {
+  pinRetrieved = true;
+  ui.setItem("pin");
+   }
+ }
+ println(pinRetrieved);
+ println(dist(mouseX,mouseY,height,height));
   }
 
   void run() {
