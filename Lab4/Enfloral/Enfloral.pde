@@ -4,7 +4,7 @@
  * @author Jasmine Ly
  */
 import processing.sound.*;
-SoundFile bgMusic;
+
 String gameMode = "menu";
 UI ui;
 
@@ -16,6 +16,13 @@ Attractor a;
 Magnet m;
 
 void setup() {
+  size (900, 600); 
+  
+
+  boxUI = loadImage("UIBox.png");
+  menu = loadImage("menuScreen.png");
+  button = loadImage("button.png");
+  start = loadImage("start.png");
   mover = new Mover[numMovers];
   for (int i = 0; i < numMovers; i++) {
     mover[i] = new Mover();
@@ -23,13 +30,13 @@ void setup() {
   a = new Attractor();
   m = new Magnet();
   textSize(16);
-  size (900, 600); 
-  buttonStart = new Buttons(new PVector(100, 100), 100, "start");
-  buttonClock = new Buttons(new PVector(700, 300), 100, "clockRoom");
-  buttonLobby = new Buttons(new PVector(500, 500), 100, "lobby");
-  buttonLounge = new Buttons(new PVector(400, 400), 100, "lounge");
-  buttonTank = new Buttons (new PVector (200, 200), 100, "tank");
-  buttonDoor = new Buttons(new PVector (300, 300), 100, "door");
+
+  buttonStart = new Buttons(new PVector(100, 100), 100, "Start!");
+  buttonClock = new Buttons(new PVector(700, 300), 100, "Clock");
+  buttonLobby = new Buttons(new PVector(700, 100), 100, "Lobby");
+  buttonLounge = new Buttons(new PVector(400, 400), 100, "Lounge");
+  buttonTank = new Buttons (new PVector (200, 200), 100, "Tank");
+  buttonDoor = new Buttons(new PVector (300, 300), 100, "Door");
 
   ui = new UI();
   bgMusic = new SoundFile(this, "jazz.wav");
@@ -37,30 +44,31 @@ void setup() {
 }
 
 void draw() {
-  background(255);
 
 
   if (gameMode == "menu") {
+    image(menu, 0, 0);
     buttonStart.run();
-  } else if (gameMode == "start") {
-    background(0);
-    String s = "gaaaaah there is a MURDER.  You are a DETECTIVE.";
-    text(s, 40, 40, 280, 320);
+  } else if (gameMode == "Start!") {
+    image(start, 0, 0);
+
     buttonLobby.run();
-  } else if (gameMode == "clockRoom") {
+  } else if (gameMode == "Clock") {
     clockRoom();
     buttonLounge.run();
-  } else if (gameMode == "lobby") {
+  } else if (gameMode == "Lobby") {
     background(0);
-    text("LOBBY ROOM", 40, 40, 280, 320);
+
     buttonDoor.run();
     buttonLounge.run();
-  } else if (gameMode == "lounge") {
+  } else if (gameMode == "Lounge") {
     background(0);
+    ui.setDesc("");
     text("LOUNGE", 40, 40, 280, 320);
+    buttonLobby.run();
     buttonClock.run();
     buttonTank.run();
-  } else if (gameMode == "tank") {
+  } else if (gameMode == "Tank") {
     background(0);
     for (Mover m : mover) {
       m.run(); 
@@ -72,12 +80,13 @@ void draw() {
     a.run();
     m.run();
     buttonLounge.run();
-  } else if (gameMode == "door"){
+  } else if (gameMode == "Door") {
+    background(0);
     buttonLobby.run();
   }
 
 
-  if (gameMode != "start" && gameMode != "menu") {
+  if (gameMode != "Start!" && gameMode != "menu") {
     ui.run();
   }
 }

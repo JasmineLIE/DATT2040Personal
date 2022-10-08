@@ -1,16 +1,18 @@
+
 PVector textBoxPos, itemBoxPos;
 PVector itemPos = new PVector(810, 530);
 String desc = "";
 String item;
-int padding = 40;
+int padding = 50;
 int itemSize = 50;
 
 class UI {
   void drawBoxes() {
     textBoxPos = new PVector(150, 490);
-    rect(textBoxPos.x, textBoxPos.y, 600, 100);
+    
+    image(boxUI, 0, 0);
     itemBoxPos = new PVector(750, 470);
-    rect(itemBoxPos.x, itemBoxPos.y, 125, 125);
+   
     text(desc, textBoxPos.x+padding, textBoxPos.y+padding);
   }
 

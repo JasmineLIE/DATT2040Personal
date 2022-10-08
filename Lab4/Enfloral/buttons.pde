@@ -12,10 +12,12 @@ class Buttons {
   }
 
   void drawButton() {
-    ellipse(pos.x, pos.y, size, size);
-    fill(0);
-    text(id, pos.x, pos.y);
+    imageMode(CENTER);
+    image(button, pos.x+30, pos.y-10);
     fill(255);
+    text(id, pos.x, pos.y);
+
+    imageMode(CORNER);
   }
   void buttonClicked() {
 
@@ -26,9 +28,6 @@ class Buttons {
       }
     } 
   }
-
-
-
 
 
   void run() {
