@@ -1,4 +1,4 @@
-
+//two classes are in this tab relating to the tank.  One of them is the Attractor, which works in tandem with Mover to simulate objects gravitating around an item
 boolean pinRetrieved = false;
 class Attractor { 
   float mass;
@@ -15,24 +15,24 @@ class Attractor {
   PVector attract(Mover m) {
     PVector force = PVector.sub(location, m.location);
 
-    float distance = force.mag();
+    float distance = force.mag(); //store the length of the distance between the vector of the attractor and of the mover into distance
 
 
 
-    distance = constrain(distance, 5, 15);
+    distance = constrain(distance, 5, 15); //constrain so the movers don't push too deep or fly too far from the attractor
 
 
     force.normalize();
-    float strength = (G * mass * m.mass) / (distance * distance);
+    float strength = (G * mass * m.mass) / (distance * distance); //the strength is applied to the force that pushes against the movers, influencing their movement speed and drawback
     force.mult(strength);
-    return force;
+    return force; //function to be called within draw() so that force is consistently updating and feeding into mover
   }
 
-  void display() {
+  void display() { //when we have our magnet, and the pin has yet to be retrieved, when can use the magnet to alter the pin's location and move it around the tank.  Moving it up to the edge of the window sets our pinRetrieved check to true
     if (!pinRetrieved) {
       stroke(0);
       fill(175, 200);
-      ellipse(location.x, location.y, mass*2, mass*2);
+      image(flowerPin, location.x, location.y);
 
       if (itemDragged && ui.getItem() == "magnet" && dist(location.x, location.y, itemPos.x, itemPos.y) <= mass*2) {
 
@@ -50,8 +50,6 @@ class Attractor {
         ui.setItem("pin");
       }
     }
-    println(pinRetrieved);
-    println(dist(mouseX, mouseY, height, height));
   }
 
   void run() {
@@ -71,9 +69,6 @@ class Mover {
   }
   void update() {
 
-
-
-
     velocity.add(acceleration);
     location.add(velocity);
     acceleration.mult(0); //clearr acceleration each time
@@ -81,7 +76,8 @@ class Mover {
 
   void applyForce(PVector force) {
 
-    //Receive a force, divide by mass, and add to acceleration.
+    //receive a force, divide by mass, and add to acceleration.
+    //the mass influences how the effective the force is.  Lighter objects are less swayed by force
 
     PVector f = PVector.div(force, mass);
     acceleration.add(f);
@@ -95,7 +91,7 @@ class Mover {
 
 
 
-  void checkEdges() {
+  void checkEdges() { //keep bugs within sketch
     if (location.x > width) {
       location.x = width;
       velocity.x *= -1;

@@ -15,14 +15,12 @@ class Buttons {
     image(button, pos.x+30, pos.y-10);
     fill(255);
     text(id, pos.x, pos.y);
-
     imageMode(CORNER);
   }
   void buttonClicked() {
 
     if (dist(mouseX, mouseY, pos.x, pos.y) <= size/2) {
-
-      if (mousePressed) {
+      if (mousePressed) { //when a button is press, change gameMode to its assigned id -- used to shuffle through stages in the game
         gameMode = id;
       }
     }
