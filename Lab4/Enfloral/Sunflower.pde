@@ -14,7 +14,9 @@ class Sunflower {
       image(sf2, 0, 0);
     }
     
-    if (!sfHasPin)  ui.setDesc(sfObservation1);
+    if (!sfHasPin) 
+      ui.setDesc(sfObservation1); 
+  
   
   if(dist(mouseX,mouseY,303, 244) <=150 && !sfHasPin) {
     text(sf1Dialogue, mouseX-padding, mouseY);

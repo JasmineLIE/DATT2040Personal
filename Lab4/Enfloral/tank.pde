@@ -89,7 +89,9 @@ class Mover {
 
   void display() {
     stroke(0);
-    fill(175);
+    blendMode(ADD);
+    fill(#FFD858);
+    blendMode(NORMAL);
     ellipse(location.x, location.y, 16, 16);
   }
 

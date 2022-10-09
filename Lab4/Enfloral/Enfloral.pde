@@ -11,12 +11,13 @@ UI ui;
 Buttons buttonStart, buttonClock, buttonLobby, buttonLounge, buttonTank, buttonDoor;
 
 Sunflower sf;
+Lobelia lob;
 
 Mover [] mover;
 int numMovers = 10;
 Attractor a;
 
-PImage boxUI, menu, button, start, lobby, sf1, sf2;
+PImage boxUI, menu, button, start, lobby, sf1, sf2, door, l1, l2, lounge, tank;
 SoundFile bgMusic;
 
 void setup() {
@@ -29,7 +30,12 @@ void setup() {
   lobby = loadImage("lobby.png");
   sf1 = loadImage("sf1.png");
   sf2 = loadImage("sf2.png");
-  
+  door = loadImage("door.png");
+  l1 = loadImage("l1.png");
+  l2 = loadImage("l2.png");
+  lounge = loadImage("lounge.png");
+  tank = loadImage("tank.png");
+
   mover = new Mover[numMovers];
   for (int i = 0; i < numMovers; i++) {
     mover[i] = new Mover();
@@ -38,60 +44,70 @@ void setup() {
   textSize(16);
 
   buttonStart = new Buttons(new PVector(100, 500), 100, "Start!");
-  buttonClock = new Buttons(new PVector(400, 300), 100, "Clock");
+  buttonClock = new Buttons(new PVector(300, 100), 100, "Clock");
   buttonLobby = new Buttons(new PVector(700, 100), 100, "Lobby");
-  buttonLounge = new Buttons(new PVector(800,350), 100, "Lounge");
+  buttonLounge = new Buttons(new PVector(800, 350), 100, "Lounge");
   buttonTank = new Buttons (new PVector (150, 200), 100, "Tank");
   buttonDoor = new Buttons(new PVector (600, 125), 100, "Door");
 
   sf = new Sunflower();
+  lob = new Lobelia();
   ui = new UI();
   bgMusic = new SoundFile(this, "jazz.wav");
   bgMusic.loop();
 }
 
 void draw() {
-
+tint(255, 30);
 
   if (gameMode == "menu") {
     image(menu, 0, 0);
+     tint(255, 255);
     buttonStart.run();
   } else if (gameMode == "Start!") {
     image(start, 0, 0);
-
+ tint(255, 255);
     buttonLobby.run();
   } else if (gameMode == "Clock") {
+     tint(255, 255);
     clockRoom();
+    
     buttonLounge.run();
   } else if (gameMode == "Lobby") {
     image(lobby, 0, 0);
-
+     tint(255, 255);
+    ui.setDesc("");
     buttonDoor.run();
     buttonLounge.run();
-        sf.drawSF();
+    sf.drawSF();
   } else if (gameMode == "Lounge") {
-    background(0);
+    image(lounge, 0, 0);
+     tint(255, 255);
+    lob.drawL();
     ui.setDesc("");
-    text("LOUNGE", 40, 40, 280, 320);
     buttonLobby.run();
     buttonClock.run();
     buttonTank.run();
-
+    ui.setDesc("There's Lobelia...  Fairly relaxed for a prime suspect.");
   } else if (gameMode == "Tank") {
-    background(0);
+    
+    image(tank, 0, 0);
+     tint(255, 255);
     for (Mover m : mover) {
       m.run(); 
       PVector f = a.attract(m);
       m.applyForce(f);
     }
-    text("IMAGINE", 40, 40, 280, 320);
-
+   
     a.run();
     buttonLounge.run();
   } else if (gameMode == "Door") {
-    if (!hasKey && mousePressed) ui.setDesc("Locked tight."); 
-
+    image(door, 0, 0);
+     tint(255, 255);
+    ui.setDesc("Locked tight.");
+    buttonLobby.run();
   }
+
 
 
   if (gameMode != "Start!" && gameMode != "menu") {
