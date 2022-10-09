@@ -17,7 +17,7 @@ Mover [] mover;
 int numMovers = 10;
 Attractor a;
 
-PImage boxUI, menu, button, start, lobby, sf1, sf2, door, l1, l2, lounge, tank;
+PImage boxUI, menu, button, start, lobby, sf1, sf2, door, l1, l2, lounge, tank, clock;
 SoundFile bgMusic;
 
 void setup() {
@@ -35,6 +35,7 @@ void setup() {
   l2 = loadImage("l2.png");
   lounge = loadImage("lounge.png");
   tank = loadImage("tank.png");
+  clock = loadImage("clock.png");
 
   mover = new Mover[numMovers];
   for (int i = 0; i < numMovers; i++) {
@@ -58,31 +59,31 @@ void setup() {
 }
 
 void draw() {
-tint(255, 30);
+
 
   if (gameMode == "menu") {
     image(menu, 0, 0);
-     tint(255, 255);
+
     buttonStart.run();
   } else if (gameMode == "Start!") {
     image(start, 0, 0);
- tint(255, 255);
+
     buttonLobby.run();
   } else if (gameMode == "Clock") {
-     tint(255, 255);
+    image(clock, 0, 0);
     clockRoom();
-    
+
     buttonLounge.run();
   } else if (gameMode == "Lobby") {
     image(lobby, 0, 0);
-     tint(255, 255);
+
     ui.setDesc("");
     buttonDoor.run();
     buttonLounge.run();
     sf.drawSF();
   } else if (gameMode == "Lounge") {
     image(lounge, 0, 0);
-     tint(255, 255);
+
     lob.drawL();
     ui.setDesc("");
     buttonLobby.run();
@@ -90,20 +91,20 @@ tint(255, 30);
     buttonTank.run();
     ui.setDesc("There's Lobelia...  Fairly relaxed for a prime suspect.");
   } else if (gameMode == "Tank") {
-    
+
     image(tank, 0, 0);
-     tint(255, 255);
+
     for (Mover m : mover) {
       m.run(); 
       PVector f = a.attract(m);
       m.applyForce(f);
     }
-   
+
     a.run();
     buttonLounge.run();
   } else if (gameMode == "Door") {
     image(door, 0, 0);
-     tint(255, 255);
+
     ui.setDesc("Locked tight.");
     buttonLobby.run();
   }

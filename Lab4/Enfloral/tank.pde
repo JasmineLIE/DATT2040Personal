@@ -8,7 +8,7 @@ class Attractor {
   String tank2 = "Ah, the magic of magnets on a string.  Good thing I brought \n floss today.";
   Attractor() {
     location = new PVector(width/2, height/2);
-    mass = 20;
+    mass = 25;
     G = 0.5; //gravitational pull of attractor
   }
 
@@ -17,7 +17,7 @@ class Attractor {
 
     float distance = force.mag();
 
-   
+
 
     distance = constrain(distance, 5, 15);
 
@@ -41,17 +41,17 @@ class Attractor {
       }
       ui.setDesc(tank1);
     } else {
-     ui.setDesc(tank2); 
+      ui.setDesc(tank2);
     }
 
- if (dist(mouseX, mouseY, height, height) > 600) {
-   if (mousePressed && itemDragged) {
-  pinRetrieved = true;
-  ui.setItem("pin");
-   }
- }
- println(pinRetrieved);
- println(dist(mouseX,mouseY,height,height));
+    if (dist(mouseX, mouseY, height, height) > 600) {
+      if (mousePressed && itemDragged) {
+        pinRetrieved = true;
+        ui.setItem("pin");
+      }
+    }
+    println(pinRetrieved);
+    println(dist(mouseX, mouseY, height, height));
   }
 
   void run() {
@@ -89,9 +89,7 @@ class Mover {
 
   void display() {
     stroke(0);
-    blendMode(ADD);
     fill(#FFD858);
-    blendMode(NORMAL);
     ellipse(location.x, location.y, 16, 16);
   }
 

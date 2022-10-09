@@ -9,12 +9,10 @@ class Lobelia {
     } else {
       image(l2, 0, 0);
     }
- 
-  if (dist(mouseX, mouseY, 720, 353) <= 150) {
-    fill(255);
-    text(l1Dialogue, mouseX-padding, mouseY);
+
+    if (dist(mouseX, mouseY, 720, 353) <= 150) {
+      fill(255);
+      text(l1Dialogue, mouseX-padding, mouseY);
+    }
   }
-}
-  
-  
 }

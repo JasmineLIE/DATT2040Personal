@@ -8,7 +8,6 @@ class Buttons {
     this.pos = pos;
     this.size = size;
     this.id = id;
-   
   }
 
   void drawButton() {
@@ -22,11 +21,11 @@ class Buttons {
   void buttonClicked() {
 
     if (dist(mouseX, mouseY, pos.x, pos.y) <= size/2) {
-     
+
       if (mousePressed) {
         gameMode = id;
       }
-    } 
+    }
   }
 
 

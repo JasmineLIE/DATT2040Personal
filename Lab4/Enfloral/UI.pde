@@ -9,10 +9,10 @@ boolean itemDragged = false;
 class UI {
   void drawBoxes() {
     textBoxPos = new PVector(150, 490);
-    
+
     image(boxUI, 0, 0);
     itemBoxPos = new PVector(750, 470);
-   
+
     text(desc, textBoxPos.x+padding, textBoxPos.y+padding);
   }
 
@@ -50,8 +50,8 @@ class UI {
     dragItem();
     getItem();
   }
-  
+
   public String getItem() {
-   return item; 
+    return item;
   }
 }

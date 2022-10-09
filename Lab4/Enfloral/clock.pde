@@ -3,19 +3,19 @@ boolean magnetGone = false;
 
 void clockRoom() {
   int s = second();
-String clockRoom1 = "Strange.  The clock still ticks.  What's keeping the hand stuck?";
-String clockRoom2 = "That sounds better; smooth and sound.  Pesky magnet.  \n I wonder who left that there.";
-  background(0);
+  String clockRoom1 = "Strange.  The clock still ticks.  What's keeping the hand stuck?";
+  String clockRoom2 = "That sounds better; smooth and sound.  Pesky magnet.  \n I wonder who left that there.";
+
   stroke(255);
   noFill();
   pushMatrix();
   translate(width/2, 200);
   strokeWeight(1);
   float rad = 150;
-  circle(0, 0, rad*2);
+
 
   strokeWeight(20);
-  stroke(252, 238, 33);
+  stroke(#187663);
   float x = rad*cos(angle);
   float y = rad*sin(angle);
   point(x, y);
