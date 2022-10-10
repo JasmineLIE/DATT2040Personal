@@ -22,7 +22,7 @@ class UI {
     if (item == "magnet") { //different padding for placing the different items on the UI
       image(magnet, itemPos.x-25, itemPos.y-20);
     } else if (item == "pin") {
-     image(flowerPin, itemPos.x-40, itemPos.y-35); 
+     image(flowerPin, itemPos.x-45, itemPos.y-35); 
     } else if (item == "key") {
      image(doorKey, itemPos.x-25, itemPos.y-20); 
     }
