@@ -1,6 +1,7 @@
 /*
 * Enfloral: An urban antasy, mystery game where you looking around the club, Enflora, to gain access into the recently missing Mr. Daisy's study for clues.
  * jazz music: https://www.youtube.com/watch?v=BZm_U5YVwVY
+ * Guide for the puzzles: Click dotted tip of clock arm > use the magnet to fish out the sunflower pin from the bug tank > take the pin to the sunflower bartender > use the key on the locked door in the lobby
  * @author Jasmine Ly
  */
 import processing.sound.*;
