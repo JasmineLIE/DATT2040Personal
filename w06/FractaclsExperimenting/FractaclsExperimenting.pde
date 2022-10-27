@@ -11,29 +11,31 @@
  
  * When we're done, the next ArrayList becomes the current one
  */
-
+import peasy.*;
+PeasyCam cam;
 ArrayList<KochLine> lines; //declare object array list-- this will keep track of our objects which we will add to continously
 
-int kochCount = 1;
+int kochCount = 3;
 void setup() {
-  size(600, 300);
-
+  frameRate(30);
+  size(600, 300, P3D);
+  cam = new PeasyCam(this, 500);
   lines = new ArrayList<KochLine>(); //create the array list
 
   PVector start = new PVector(0, 200); //left side of window
   PVector end = new PVector(width, 200); //right side of window
 
   lines.add(new KochLine(start, end)); //the first KochLine object
-
+   for (int i = 0; i <kochCount; i++) {
+    generate();
 }
-
+}
 void draw() {
 
   background(0); 
   for (KochLine l : lines) { //run the KochLine methods for all KochLine objects with this loop
     l.display();
   }
-  delay(1000); // Learnt via Processing Ref: https://processing.org/reference/delay_.html
 }
 
 void generate() {
@@ -53,14 +55,11 @@ void generate() {
     next.add(new KochLine(d, e));
   }  
   lines = next; //set the ArrayList declared before at the beginning of the sketch to the 'next' ArrayList
+
+
+
 }
 
-void mousePressed() { //click to add more lines, 
- 
- if (kochCount < 3) {
+void mousePressed() {
  kochCount++; 
-   for (int i = 0; i <kochCount; i++) {
-    generate();
-  }
- }
 }
