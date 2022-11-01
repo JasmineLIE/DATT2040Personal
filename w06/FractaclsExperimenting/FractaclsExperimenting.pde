@@ -15,7 +15,7 @@ import peasy.*;
 PeasyCam cam;
 ArrayList<KochLine> lines; //declare object array list-- this will keep track of our objects which we will add to continously
 
-int kochCount = 3;
+int kochCount = 0;
 void setup() {
   frameRate(30);
   size(600, 300, P3D);
@@ -26,9 +26,9 @@ void setup() {
   PVector end = new PVector(width, 200); //right side of window
 
   lines.add(new KochLine(start, end)); //the first KochLine object
-   for (int i = 0; i <kochCount; i++) {
+  for (int i = 0; i <kochCount; i++) {
     generate();
-}
+  }
 }
 void draw() {
 
@@ -55,11 +55,16 @@ void generate() {
     next.add(new KochLine(d, e));
   }  
   lines = next; //set the ArrayList declared before at the beginning of the sketch to the 'next' ArrayList
-
-
-
 }
 
 void mousePressed() {
- kochCount++; 
+  if (kochCount < 3) {
+    kochCount++; 
+    PVector start = new PVector(0, 200); //left side of window
+    PVector end = new PVector(width, 200); //right side of window
+    lines.add(new KochLine(start, end)); //the first KochLine object
+    for (int i = 0; i <kochCount; i++) {
+      generate();
+    }
+  }
 }
