@@ -1,5 +1,4 @@
 String artState = "painting";
-String location = "";
 PImage office, ovilus;
 
 void gameStateManager(int gameState) {
@@ -21,6 +20,12 @@ void gameStateManager(int gameState) {
 void exhibitionRoom() {
   if (artState == "painting") {
     paintObj.drawImage();
+  }
+  if (artState == "sculpture") {
+   paintObj.drawImage(); 
+  }
+  if (artState == "pottery") {
+   sculpObj.drawImage(); 
   }
 }
 

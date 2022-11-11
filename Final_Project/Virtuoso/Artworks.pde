@@ -44,13 +44,17 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     artwork = loadImage(exhibURL);
     artworkInspec = loadImage(inspecURL);
   }
-  void drawImage() {
+  void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
+  }
+  
+  void inspecArt() {
+    image(artworkInspec, width/2, height/2);
   }
   void loadDocument() {
     String[] lines = loadStrings(artProfile);
     fill(255);
-  
+
     for (int i = 0; i < lines.length; i++) {
       text(lines[i], 0, 0, width, height);
     }
@@ -60,6 +64,11 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 class Painting extends Artworks {
   Painting(PVector pos, PImage artwork, PImage artworkInspec, int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     super(pos, artwork, artworkInspec, hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+  }
+  
+  //override
+  void inspecArt() {
+  super.inspecArt();
   }
 }
 
