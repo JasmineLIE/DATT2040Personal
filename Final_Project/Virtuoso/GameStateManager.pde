@@ -1,6 +1,6 @@
 String artState = "painting";
 PImage office, ovilus, titleScreen, button;
-SoundFile openingSong;
+SoundFile openingSong, click;
 int trigger = second();
 int gameState = 0;
 void gameStateManager() {
@@ -62,6 +62,7 @@ void navigation(PVector pos, String btnName, int num) {
   if (dist(mouseX, mouseY, pos.x, pos.y) <= 100) {
     if (mousePressed) {
      gameState = num;
+     click.play();
     }
   }
 }

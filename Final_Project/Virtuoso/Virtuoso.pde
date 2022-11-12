@@ -21,12 +21,13 @@ void setup() {
   button = loadImage("img/button.png");
 
   openingSong = new SoundFile(this, "music/TheVirtuoso.mp3");
+  click = new SoundFile(this, "music/click.wav");
 
   stepx = width/col; //for grid shaping
   stepy = height/row; //for grid shaping
 }
 
 void draw() {
- background(0);
-gameStateManager();
+background(0);
+openingScene();
 }
