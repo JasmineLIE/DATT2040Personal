@@ -1,20 +1,22 @@
 String artState = "painting";
-PImage office, ovilus;
-
-void gameStateManager(int gameState) {
+PImage office, ovilus, titleScreen, button;
+SoundFile openingSong;
+int trigger = second();
+int gameState = 0;
+void gameStateManager() {
   switch(gameState) {
   case 0:
-    exhibitionRoom();
+    titleScreen();
     break;
   case 1:
     office();
+    transition();
     break;
   case 2:
     ovilus();
+    transition();
     break;
   }
-
-  transition();
 }
 
 void exhibitionRoom() {
@@ -22,10 +24,10 @@ void exhibitionRoom() {
     paintObj.drawImage();
   }
   if (artState == "sculpture") {
-   paintObj.drawImage(); 
+    paintObj.drawImage();
   }
   if (artState == "pottery") {
-   sculpObj.drawImage(); 
+    sculpObj.drawImage();
   }
 }
 
@@ -35,4 +37,31 @@ void office() {
 
 void ovilus() {
   image(ovilus, width/2, height/2);
+}
+
+void titleScreen() {
+  image(titleScreen, width/2, height/2);
+  fill(#EAE295);
+  textSize(160);
+  text("V I R T U O S O", width/2, 160); //text in the middle has a different fade out time
+  if (second() > trigger) { //let this play once without overlap
+    openingSong.play();
+    trigger = second() + (int)openingSong.duration();
+  }
+  navigation (new PVector (width/4, 300), "PLAY", 1);
+}
+
+void navigation(PVector pos, String btnName, int num) {
+  rectMode(CENTER);
+  rect(pos.x, pos.y, 240, 85, 28);
+  rectMode(NORMAL);
+  image(button, pos.x, pos.y);
+  textSize(30);
+  text(btnName, pos.x, pos.y);
+
+  if (dist(mouseX, mouseY, pos.x, pos.y) <= 100) {
+    if (mousePressed) {
+     gameState = num;
+    }
+  }
 }

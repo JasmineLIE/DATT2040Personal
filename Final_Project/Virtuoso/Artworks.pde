@@ -3,20 +3,17 @@ int falseCount = 0;
 PImage painting, sculpture, pottery, paintInspec, sculpInspec, pottInspec;
 
 class Artworks { //The following attributes will be inherited by all subclasses automatically at extension
-  PVector pos;
-  PImage artwork, artworkInspec;
+  PImage artwork, artworkInspec, artworkCursed;
   Boolean isHaunted;
-  String exhibURL, inspecURL;
+  String exhibURL, inspecURL, cursedURL;
   int difficultyRating;
   String artProfile;
 
-  Artworks(PVector pos, PImage artwork, PImage artworkInspec, int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    this.pos = pos;
-    this.artwork = artwork;
-    this.artworkInspec = artworkInspec;
+  Artworks(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
     this.isHaunted = assignHaunted(hauntedRoll); //Line 30
     this.exhibURL = exhibURL;
     this.inspecURL = inspecURL;
+    this.cursedURL = cursedURL;
     this.difficultyRating = (int)random(2); //1=Artwork will have visual hauntedness, 2==no visual hauntedness.  Ovilus is not affected
     this.artProfile = artProfile;
     setupImage(); //Perform image setup all in constructor
@@ -47,7 +44,8 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
   }
-  
+
+
   void inspecArt() {
     image(artworkInspec, width/2, height/2);
   }
@@ -62,24 +60,19 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 }
 
 class Painting extends Artworks {
-  Painting(PVector pos, PImage artwork, PImage artworkInspec, int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    super(pos, artwork, artworkInspec, hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
-  }
-  
-  //override
-  void inspecArt() {
-  super.inspecArt();
+  Painting(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
+    super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
   }
 }
 
 class Sculpture extends Artworks {
-  Sculpture(PVector pos, PImage artwork, PImage artworkInspec, int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    super(pos, artwork, artworkInspec, hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+  Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
+    super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
   }
 }
 
 class Pottery extends Artworks {
-  Pottery(PVector pos, PImage artwork, PImage artworkInspec, int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    super(pos, artwork, artworkInspec, hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+  Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
+    super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
   }
 }

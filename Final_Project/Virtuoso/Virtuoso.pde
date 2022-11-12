@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 Painting paintObj;
 Sculpture sculpObj;
 Pottery pottObj;
@@ -9,23 +11,22 @@ void setup() {
   mono=createFont("jupiterc.ttf", 24);
   textAlign(CENTER, CENTER);
   textFont(mono);
-  paintObj = new Painting(new PVector(10, 10), painting, paintInspec, (int)random(2), "img/exhibit1.png", "img/exhibit1.png", "txt/painting.txt");
-  sculpObj = new Sculpture(new PVector(10, 10), sculpture, sculpInspec, (int)random(2), "img/exhibit2.png", "img/exhibit2.png", "txt/sculpture.txt");
-  pottObj = new Pottery(new PVector(10, 10), pottery, pottInspec, (int)random(2), "img/exhibit3.png", "img/exhibit3.png", "txt/pottery.txt");
+  paintObj = new Painting((int)random(2), "img/exhibit1.png", "img/exhibit1.png", "txt/painting.txt", "img/cursed1.png");
+  sculpObj = new Sculpture( (int)random(2), "img/exhibit2.png", "img/exhibit2.png", "txt/sculpture.txt", "img/cursed.png");
+  pottObj = new Pottery((int)random(2), "img/exhibit3.png", "img/exhibit3.png", "txt/pottery.txt", "img/cursed.ong");
+
   office = loadImage("img/officeDesk.png");
   ovilus = loadImage("img/ovilus.png");
+  titleScreen = loadImage("img/openingScreen.png");
+  button = loadImage("img/button.png");
+
+  openingSong = new SoundFile(this, "music/TheVirtuoso.mp3");
 
   stepx = width/col; //for grid shaping
   stepy = height/row; //for grid shaping
 }
 
 void draw() {
-  background(0);
-  if (key == '0') {
-    gameStateManager(0);
-  } else if (key == '1') {
-    gameStateManager(1);
-  } else if (key=='2') {
-    gameStateManager(2);
-  }
+ background(0);
+gameStateManager();
 }
