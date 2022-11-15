@@ -40,6 +40,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   void setupImage() {
     artwork = loadImage(exhibURL);
     artworkInspec = loadImage(inspecURL);
+    artworkCursed = loadImage(cursedURL);
   }
   void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
@@ -47,7 +48,28 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
 
   void inspecArt() {
-    image(artworkInspec, width/2, height/2);
+    loadPixels();
+    artworkInspec.loadPixels();
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y<height; y++) {
+        int loc = x + y*artworkInspec.width;
+
+        float r = red(artworkInspec.pixels[loc]);
+        float g = green(artworkInspec.pixels[loc]);
+        float b = blue(artworkInspec.pixels[loc]);
+
+        float d = dist(x, y, mouseX, mouseY);
+        float adjustBrightness = map(d, 0, 400, 2, 0);
+        r *= adjustBrightness;
+        g *= adjustBrightness;
+        b *= adjustBrightness;
+        color c = color(r, g, b);
+        pixels[loc] = c;
+      }
+    }
+
+    updatePixels();
+    navigation(new PVector(150, 700), "EXHIBITION", 3, #EAE295);
   }
   void loadDocument() {
     String[] lines = loadStrings(artProfile);
@@ -63,16 +85,26 @@ class Painting extends Artworks {
   Painting(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
   }
+
+  void inspecArt() {
+    super.inspecArt();
+  }
 }
 
 class Sculpture extends Artworks {
   Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
   }
+  void inspecArt() {
+    super.inspecArt();
+  }
 }
 
 class Pottery extends Artworks {
   Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
+  }
+  void inspecArt() {
+    super.inspecArt();
   }
 }
