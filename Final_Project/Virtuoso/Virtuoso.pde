@@ -6,6 +6,7 @@ Pottery pottObj;
 PFont mono;
 
 void setup() {
+  noSmooth();
   imageMode(CENTER);
   size(1000, 800);
   mono=createFont("jupiterc.ttf", 24);
@@ -19,13 +20,14 @@ void setup() {
   ovilus = loadImage("img/ovilus.png");
   titleScreen = loadImage("img/openingScreen.png");
   button = loadImage("img/button.png");
+  printer = loadImage("img/printer.png");
   
   opImages = new PImage[4];
   for (int i = 0; i < 4; i++) {
      String fileName = "img/op/op" + i + ".png";
      opImages[i] = loadImage(fileName);
   }
-
+  
   openingSong = new SoundFile(this, "music/TheVirtuoso.mp3");
   click = new SoundFile(this, "music/click.wav");
 

@@ -1,9 +1,11 @@
 String artState = "painting";
-PImage office, ovilus, titleScreen, button;
+PImage office, ovilus, titleScreen, button, printer;
 SoundFile openingSong, click;
 int songTrigger = 0; //create this so that the intro song can play, set to 0 for now, so that it always plays after the intro no matter how long the player takes
 int gameState = 0;
-boolean stampDragged = false;
+boolean buttonVisibility = true;
+boolean printing = true;
+
 
 void gameStateManager() {
   switch(gameState) {
@@ -23,8 +25,8 @@ void gameStateManager() {
     transition();
     break;
   case 4:
-  inspec();
-  break;
+    inspec();
+    break;
   }
 }
 
@@ -61,7 +63,7 @@ void exhibitionRoom() {
 }
 
 void inspec() {
-    switch (artState) {
+  switch (artState) {
   case "painting":
     paintObj.inspecArt();
     break;
@@ -72,13 +74,13 @@ void inspec() {
     sculpObj.inspecArt();
     break;
   }
-  
 }
 
 
 void office() {
   image(office, width/2, height/2);
   navigation(new PVector (width/2, 700), "EXHIBITION", 3, #EAE295);
+  printer();
 }
 
 void ovilus() {

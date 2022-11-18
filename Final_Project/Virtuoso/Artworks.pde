@@ -27,6 +27,8 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     } else {
       falseCount++;
     }
+    
+    printing = true;
   }
 
   boolean assignHaunted(int num) { //whether the artwork is haunted or not is randomized

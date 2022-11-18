@@ -1,4 +1,4 @@
-int col = 15; //<>//
+int col = 15;
 int row = 15;
 int stepx, stepy;
 int decrement = 0;
@@ -16,4 +16,14 @@ void transition() {
   textSize(120);
   text("V I R T U O S O", width/2, height/2); //text in the middle has a different fade out time
   decrement+=5;
+}
+
+void printer() {
+  rectMode(CENTER);
+  PVector pos = new PVector(475, 200);
+  fill(255);
+ image(printer, 475, 160); 
+ rect(pos.x, pos.y, 250, 300);
+ rectMode(NORMAL);
+ 
 }
