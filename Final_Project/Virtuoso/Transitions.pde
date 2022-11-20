@@ -18,12 +18,6 @@ void transition() {
   decrement+=5;
 }
 
-void printer() {
-  rectMode(CENTER);
-  PVector pos = new PVector(475, 200);
-  fill(255);
- image(printer, 475, 160); 
- rect(pos.x, pos.y, 250, 300);
- rectMode(NORMAL);
+
+
  
-}

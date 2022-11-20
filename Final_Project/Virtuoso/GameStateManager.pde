@@ -30,20 +30,6 @@ void gameStateManager() {
   }
 }
 
-boolean isPressed = true;
-int counter = 0;
-void typeWriter(String script, int speed, color fill, int size, PVector pos) {
-  textSize(size);
-  fill(fill);
-  text(script.substring(0, counter), pos.x, pos.y);
-  if (counter < script.length() && isPressed) {
-    if (frameCount%speed==0)
-      click.play();
-    counter++;
-  } else {
-    isPressed = false;
-  }
-}
 
 void exhibitionRoom() {
   switch (artState) {
@@ -80,7 +66,19 @@ void inspec() {
 void office() {
   image(office, width/2, height/2);
   navigation(new PVector (width/2, 700), "EXHIBITION", 3, #EAE295);
-  printer();
+    switch (artState) {
+  case "painting":
+    paintObj.printer();
+    break;
+  case "sculpture":
+    sculpObj.printer();
+    break;
+  case "pottery":
+    sculpObj.printer();
+    break;
+  }
+  
+ 
 }
 
 void ovilus() {
@@ -146,4 +144,8 @@ void navigation(PVector pos, String btnName, int num, color col) {
   }
 
   text(btnName, pos.x, pos.y);
+}
+
+void keyPressed()  {
+ if (key == '1') artState = "sculpture";
 }

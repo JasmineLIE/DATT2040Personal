@@ -48,6 +48,22 @@ void openingSlides() {
   text(s, width/2, 50);
 }
 
+boolean isPressed = true;
+int counter = 0;
+void typeWriter(String script, int speed, color fill, int size, PVector pos) {
+  textSize(size);
+  fill(fill);
+  text(script.substring(0, counter), pos.x, pos.y);
+  if (counter < script.length() && isPressed) {
+    if (frameCount%speed==0)
+      click.play();
+    counter++;
+  } else {
+    isPressed = false;
+  }
+}
+
+
 void mouseClicked() {
   if (introState == 1 && imgCount < 3 && !isPressed) {
     isPressed = true;

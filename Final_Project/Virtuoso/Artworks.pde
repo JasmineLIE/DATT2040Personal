@@ -61,7 +61,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
         float b = blue(artworkInspec.pixels[loc]);
 
         float d = dist(x, y, mouseX, mouseY);
-        float adjustBrightness = map(d, 0, 400, 2, 0);
+        float adjustBrightness = map(d, 0, 300, 2, 0);
         r *= adjustBrightness;
         g *= adjustBrightness;
         b *= adjustBrightness;
@@ -73,8 +73,24 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     updatePixels();
     navigation(new PVector(150, 700), "EXHIBITION", 3, #EAE295);
   }
+  
+  void printer() {
+  rectMode(CENTER);
+  PVector pos = new PVector(475, 200);
+  fill(255);
+ image(printer, 475, 160); 
+ rect(pos.x, pos.y, 250, 300);
+  if (dist(mouseX, mouseY, pos.x, pos.y) <= 180) {
+   fill(0);
+   if (mousePressed) {
+    loadDocument();
+   }
+ }
+ rectMode(NORMAL);
+
+  }
   void loadDocument() {
-    String[] lines = loadStrings(artProfile);
+    String[] lines = loadStrings(artProfile); 
     fill(255);
 
     for (int i = 0; i < lines.length; i++) {
