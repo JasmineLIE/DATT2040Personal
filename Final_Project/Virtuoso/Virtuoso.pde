@@ -11,6 +11,7 @@ void setup() {
   noSmooth();
   imageMode(CENTER);
   size(1000, 800, P2D);
+  
   mono=createFont("jupiterc.ttf", 24);
   textAlign(CENTER, CENTER);
   textFont(mono);
