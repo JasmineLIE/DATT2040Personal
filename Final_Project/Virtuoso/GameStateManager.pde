@@ -121,6 +121,8 @@ void navigation(PVector pos, String btnName, int num, color col) {
           pottObj.verification(true);
           break;
         }
+        paperPrinted = false;
+        printerPosReset();
       } else if (btnName == "DENY") {
         switch (artState) {
         case "painting":
@@ -133,12 +135,14 @@ void navigation(PVector pos, String btnName, int num, color col) {
           pottObj.verification(false);
           break;
         }
-        
+        paperPrinted = false;
+        printerPosReset();
       } else {
         decrement = 0;
         gameState = num;
         click.play();
         openingSong.stop();
+        openingSong.removeFromCache();
       }
       docClicked = false;
     }
@@ -148,5 +152,10 @@ void navigation(PVector pos, String btnName, int num, color col) {
 }
 
 void keyPressed() {
-  if (key == '1') artState = "sculpture";
+  if (key == '1') isPrinting = true;
+  if (key == '2') printerPosReset();
+}
+void printerPosReset() {
+  printerPos.set(475, 160);
+  paperPos.set(475, 200);
 }

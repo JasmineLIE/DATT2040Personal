@@ -1,7 +1,16 @@
 int correctCount = 0;
 int falseCount = 0;
-PImage painting, sculpture, pottery, paintInspec, sculpInspec, pottInspec;
+int printTrigger = 0;
+PImage painting, sculpture, pottery, paintInspec, sculpInspec, pottInspec, cursor1, cursor2;
 boolean docClicked = false;
+boolean isPrinting = true;
+boolean paperPrinted = false;
+PVector acc = new PVector (1, 0);
+PVector printerPos = new PVector(475, 160);
+PVector paperPos = new PVector(475, 200);
+SoundFile print;
+
+BubblesSystem bs;
 
 class Artworks { //The following attributes will be inherited by all subclasses automatically at extension
   PImage artwork, artworkInspec, artworkCursed;
@@ -48,7 +57,9 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     image(artwork, width/2, height/2);
   }
 
+
   void stageSwitch() {
+    isPrinting = true;
     //To Override
   }
 
@@ -80,17 +91,42 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
   void printer() {
     rectMode(CENTER);
-    PVector pos = new PVector(475, 200);
-    PVector printerPos = new PVector(475, 160);
+
     fill(255);
+    rect(paperPos.x, paperPos.y, 200, 280);
+     bs.run();
     image(printer, printerPos.x, printerPos.y);
-    rect(pos.x, pos.y, 250, 300);
-    if (dist(mouseX, mouseY, pos.x, pos.y) <= 180 && !docClicked) {
-      if (mousePressed) {
-        docClicked = true;
-        println(docClicked);
+   
+
+    if (isPrinting) {
+
+      if (second() > printTrigger) {
+        print.play();
+        printTrigger = second() + (int)print.duration();
+      }
+      paperPos.y++;
+      if (printerPos.x>(480) ) {
+        ;
+        acc.x*=-1;
+      }
+      if (printerPos.x < (470)) {
+        acc.x*=-1;
+      }
+      printerPos.add(acc);
+      if (paperPos.y == 500) isPrinting = false;
+      paperPrinted = true;
+    } else {
+      print.stop();
+      if (dist(mouseX, mouseY, paperPos.x, paperPos.y) <= 180 && !docClicked && paperPrinted) {
+        cursorInspec = true;
+        if (mousePressed) {
+          docClicked = true;
+        }
+      } else {
+        cursorInspec = false;
       }
     }
+
     rectMode(NORMAL);
     if (docClicked) {
       image(paper, width/2, height/2);
@@ -106,12 +142,11 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     for (int i = 0; i < lines.length; i++) {
       text(lines[i], 10, 10, width/2+100, height);
     }
-     
+
     navigation(new PVector(800, 600), "OFFICE", 1, #EAE295);
     navigation(new PVector(800, 200), "PASS", 1, #02F54D);
     navigation(new PVector(800, 400), "DENY", 1, #F50202);
   }
-   
 }
 
 class Painting extends Artworks {
@@ -123,6 +158,7 @@ class Painting extends Artworks {
     super.inspecArt();
   }
   void stageSwitch() {
+    super.stageSwitch();
     artState = "sculpture";
   }
 }
@@ -135,6 +171,7 @@ class Sculpture extends Artworks {
     super.inspecArt();
   }
   void stageSwitch() {
+    super.stageSwitch();
     artState = "pottery";
   }
 }
