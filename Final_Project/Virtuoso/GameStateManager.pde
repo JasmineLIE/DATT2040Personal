@@ -1,10 +1,10 @@
 String artState = "painting";
-PImage office, ovilus, titleScreen, button, printer;
+PImage office, ovilus, titleScreen, button, printer, paper;
 SoundFile openingSong, click;
 int songTrigger = 0; //create this so that the intro song can play, set to 0 for now, so that it always plays after the intro no matter how long the player takes
 int gameState = 0;
 boolean buttonVisibility = true;
-boolean printing = true;
+
 
 
 void gameStateManager() {
@@ -66,7 +66,7 @@ void inspec() {
 void office() {
   image(office, width/2, height/2);
   navigation(new PVector (width/2, 700), "EXHIBITION", 3, #EAE295);
-    switch (artState) {
+  switch (artState) {
   case "painting":
     paintObj.printer();
     break;
@@ -77,8 +77,6 @@ void office() {
     sculpObj.printer();
     break;
   }
-  
- 
 }
 
 void ovilus() {
@@ -105,6 +103,7 @@ void navigation(PVector pos, String btnName, int num, color col) {
   image(button, pos.x, pos.y);
   fill(col);
   textSize(30);
+  textAlign(CENTER, CENTER);
   if (dist(mouseX, mouseY, pos.x, pos.y) <= 100) {
     tint(#FFD95A);
     image(button, pos.x, pos.y);
@@ -134,18 +133,20 @@ void navigation(PVector pos, String btnName, int num, color col) {
           pottObj.verification(false);
           break;
         }
+        
       } else {
         decrement = 0;
         gameState = num;
         click.play();
         openingSong.stop();
       }
+      docClicked = false;
     }
   }
 
   text(btnName, pos.x, pos.y);
 }
 
-void keyPressed()  {
- if (key == '1') artState = "sculpture";
+void keyPressed() {
+  if (key == '1') artState = "sculpture";
 }

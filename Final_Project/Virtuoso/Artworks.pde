@@ -1,6 +1,7 @@
 int correctCount = 0;
 int falseCount = 0;
 PImage painting, sculpture, pottery, paintInspec, sculpInspec, pottInspec;
+boolean docClicked = false;
 
 class Artworks { //The following attributes will be inherited by all subclasses automatically at extension
   PImage artwork, artworkInspec, artworkCursed;
@@ -27,8 +28,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     } else {
       falseCount++;
     }
-    
-    printing = true;
+    stageSwitch();
   }
 
   boolean assignHaunted(int num) { //whether the artwork is haunted or not is randomized
@@ -46,6 +46,10 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   }
   void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
+  }
+
+  void stageSwitch() {
+    //To Override
   }
 
 
@@ -73,30 +77,41 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     updatePixels();
     navigation(new PVector(150, 700), "EXHIBITION", 3, #EAE295);
   }
-  
+
   void printer() {
-  rectMode(CENTER);
-  PVector pos = new PVector(475, 200);
-  fill(255);
- image(printer, 475, 160); 
- rect(pos.x, pos.y, 250, 300);
-  if (dist(mouseX, mouseY, pos.x, pos.y) <= 180) {
-   fill(0);
-   if (mousePressed) {
-    loadDocument();
-   }
- }
- rectMode(NORMAL);
-
-  }
-  void loadDocument() {
-    String[] lines = loadStrings(artProfile); 
+    rectMode(CENTER);
+    PVector pos = new PVector(475, 200);
+    PVector printerPos = new PVector(475, 160);
     fill(255);
-
-    for (int i = 0; i < lines.length; i++) {
-      text(lines[i], 0, 0, width, height);
+    image(printer, printerPos.x, printerPos.y);
+    rect(pos.x, pos.y, 250, 300);
+    if (dist(mouseX, mouseY, pos.x, pos.y) <= 180 && !docClicked) {
+      if (mousePressed) {
+        docClicked = true;
+        println(docClicked);
+      }
+    }
+    rectMode(NORMAL);
+    if (docClicked) {
+      image(paper, width/2, height/2);
+      loadDocument();
     }
   }
+  void loadDocument() {
+    String[] lines = loadStrings(artProfile);
+    fill(255);
+    rect(0, 0, width/2+100, height);
+    fill(0);
+    textAlign(NORMAL);
+    for (int i = 0; i < lines.length; i++) {
+      text(lines[i], 10, 10, width/2+100, height);
+    }
+     
+    navigation(new PVector(800, 600), "OFFICE", 1, #EAE295);
+    navigation(new PVector(800, 200), "PASS", 1, #02F54D);
+    navigation(new PVector(800, 400), "DENY", 1, #F50202);
+  }
+   
 }
 
 class Painting extends Artworks {
@@ -107,6 +122,9 @@ class Painting extends Artworks {
   void inspecArt() {
     super.inspecArt();
   }
+  void stageSwitch() {
+    artState = "sculpture";
+  }
 }
 
 class Sculpture extends Artworks {
@@ -115,6 +133,9 @@ class Sculpture extends Artworks {
   }
   void inspecArt() {
     super.inspecArt();
+  }
+  void stageSwitch() {
+    artState = "pottery";
   }
 }
 
