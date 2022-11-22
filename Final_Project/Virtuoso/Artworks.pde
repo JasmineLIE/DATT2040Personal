@@ -183,4 +183,7 @@ class Pottery extends Artworks {
   void inspecArt() {
     super.inspecArt();
   }
+  void stageSwitch() {
+   introState = 3; 
+  }
 }

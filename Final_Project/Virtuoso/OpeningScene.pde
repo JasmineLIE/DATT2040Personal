@@ -23,6 +23,9 @@ void openingScene() {
   case 2:
     gameStateManager();
     break;
+  case 3:
+    endManager();
+    break;
   }
 }
 
