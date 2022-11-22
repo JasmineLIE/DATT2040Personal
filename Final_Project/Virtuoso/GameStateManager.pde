@@ -40,7 +40,7 @@ void exhibitionRoom() {
     sculpObj.drawImage();
     break;
   case "pottery":
-    sculpObj.drawImage();
+    pottObj.drawImage();
     break;
   }
   navigation(new PVector(200, 80), "OFFICE", 1, #EAE295);
@@ -57,7 +57,7 @@ void inspec() {
     sculpObj.inspecArt();
     break;
   case "pottery":
-    sculpObj.inspecArt();
+    pottObj.inspecArt();
     break;
   }
 }
@@ -74,7 +74,7 @@ void office() {
     sculpObj.printer();
     break;
   case "pottery":
-    sculpObj.printer();
+    pottObj.printer();
     break;
   }
 }
@@ -121,6 +121,7 @@ void navigation(PVector pos, String btnName, int num, color col) {
           pottObj.verification(true);
           break;
         }
+        click.play();
         paperPrinted = false;
         printerPosReset();
       } else if (btnName == "DENY") {
@@ -135,26 +136,25 @@ void navigation(PVector pos, String btnName, int num, color col) {
           pottObj.verification(false);
           break;
         }
+        click.play();
         paperPrinted = false;
         printerPosReset();
       } else {
         decrement = 0;
-        gameState = num;
         click.play();
+        gameState = num;
         openingSong.stop();
         openingSong.removeFromCache();
       }
       docClicked = false;
     }
+    
   }
 
   text(btnName, pos.x, pos.y);
 }
 
-void keyPressed() {
-  if (key == '1') isPrinting = true;
-  if (key == '2') printerPosReset();
-}
+
 void printerPosReset() {
   printerPos.set(475, 160);
   paperPos.set(475, 200);

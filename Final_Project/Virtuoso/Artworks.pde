@@ -41,11 +41,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   }
 
   boolean assignHaunted(int num) { //whether the artwork is haunted or not is randomized
-    if (num == 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return (num==1);
   }
 
   void setupImage() {
@@ -60,6 +56,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
   void stageSwitch() {
     isPrinting = true;
+     printTrigger = 0;
     //To Override
   }
 
@@ -76,7 +73,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
         float b = blue(artworkInspec.pixels[loc]);
 
         float d = dist(x, y, mouseX, mouseY);
-        float adjustBrightness = map(d, 0, 300, 2, 0);
+        float adjustBrightness = map(d, 100, 500, 2, 0);
         r *= adjustBrightness;
         g *= adjustBrightness;
         b *= adjustBrightness;
@@ -137,10 +134,10 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     String[] lines = loadStrings(artProfile);
     fill(255);
     rect(0, 0, width/2+100, height);
-    fill(0);
+    fill(#1F1D1C);
     textAlign(NORMAL);
     for (int i = 0; i < lines.length; i++) {
-      text(lines[i], 10, 10, width/2+100, height);
+      text(lines[i], 20, 10+(i*15), width/2+7, height);
     }
 
     navigation(new PVector(800, 600), "OFFICE", 1, #EAE295);
@@ -156,6 +153,9 @@ class Painting extends Artworks {
 
   void inspecArt() {
     super.inspecArt();
+    if (this.isHaunted && this.difficultyRating == 2) {
+      
+    }
   }
   void stageSwitch() {
     super.stageSwitch();
