@@ -1,9 +1,13 @@
 String s = "Click Anywhere To Continue.";
 String dialogue = "I can't shake off the feeling that something is wrong.";
 
-int introState = 0;
+boolean isPressed;
+int counter;
+
+int introState;
+int imgCount;
+
 PImage[] opImages;
-int imgCount = 0;
 String [] opDialogue = {
   "My exhibits shows soon at the Yggrasil Gallery. This was my dream, but all I feel is dread.",
   "Not after what Director Gray said.  About the haunted curse of the museum. The thing that lurks in the art.",
@@ -47,8 +51,7 @@ void openingSlides() {
   text(s, width/2, 50);
 }
 
-boolean isPressed = true;
-int counter = 0;
+
 
 void resetTextCounter() {
   isPressed = true;
@@ -86,5 +89,10 @@ void mouseClicked() {
     resetTextCounter();
     endReveal = true;
   }
+}
 
+void mouseReleased() {
+  if (gameState==5 && imgCount >= edDialogue.length) {
+    reset();
+  }
 }

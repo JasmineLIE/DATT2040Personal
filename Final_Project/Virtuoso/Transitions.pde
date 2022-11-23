@@ -1,7 +1,7 @@
-int col = 15;
-int row = 15;
+int col;
+int row;
 int stepx, stepy;
-int decrement = 0;
+int decrement;
 
 void transition() {
   noStroke();

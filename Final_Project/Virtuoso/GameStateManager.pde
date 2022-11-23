@@ -1,9 +1,9 @@
-String artState = "painting";
+String artState;
 PImage office, ovilus, titleScreen, button, printer, paper;
 SoundFile openingSong, click;
-int songTrigger = 0; //create this so that the intro song can play, set to 0 for now, so that it always plays after the intro no matter how long the player takes
-int gameState = 0;
-boolean buttonVisibility = true;
+int songTrigger; //create this so that the intro song can play, set to 0 for now, so that it always plays after the intro no matter how long the player takes
+int gameState;
+boolean buttonVisibility;
 
 
 

@@ -1,13 +1,13 @@
-int correctCount = 0;
-int falseCount = 0;
-int printTrigger = 0;
+int correctCount;
+int falseCount;
+int printTrigger;
 PImage painting, sculpture, pottery, paintInspec, sculpInspec, pottInspec, cursor1, cursor2;
-boolean docClicked = false;
-boolean isPrinting = true;
-boolean paperPrinted = false;
-PVector acc = new PVector (1, 0);
-PVector printerPos = new PVector(475, 160);
-PVector paperPos = new PVector(475, 200);
+boolean docClicked;
+boolean isPrinting;
+boolean paperPrinted;
+PVector acc;
+PVector printerPos;
+PVector paperPos;
 SoundFile print;
 
 BubblesSystem bs;

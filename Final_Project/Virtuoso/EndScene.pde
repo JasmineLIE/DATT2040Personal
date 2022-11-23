@@ -8,8 +8,8 @@ String [] edDialogue = {
 PImage [] edImages;
 String goodED = "Things are finally looking up!";
 String badED = "Yet... why do I still feel something off?";
-boolean endReveal = false;
-float tintOp = 0;
+boolean endReveal;
+float tintOp;
 void endManager() {
   background(0);
   tint(255, tintOp);
@@ -28,9 +28,9 @@ void endManager() {
     } else if (falseCount > correctCount) {
       typeWriter(badED, 15, #FF0D00, 40, new PVector(width/2, height/2));
     }
-     textSize(30);
+    textSize(30);
     fill(#9D9D9D);
     text("Thank you for playing!", width/2, 50);
+    text("Click anywhere to restart!", width/2, 750);
   }
-     
 }
