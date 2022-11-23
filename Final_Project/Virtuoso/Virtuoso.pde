@@ -16,7 +16,7 @@ void setup() {
   textAlign(CENTER, CENTER);
   textFont(mono);
 
-  reset(); //for replayability!
+  reset(); //for replayability! 
 
   office = loadImage("img/officeDesk.png");
   ovilus = loadImage("img/ovilus.png");

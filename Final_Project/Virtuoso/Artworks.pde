@@ -15,15 +15,14 @@ BubblesSystem bs;
 class Artworks { //The following attributes will be inherited by all subclasses automatically at extension
   PImage artwork, artworkInspec, artworkCursed;
   Boolean isHaunted;
-  String exhibURL, inspecURL, cursedURL;
+  String exhibURL, inspecURL;
   int difficultyRating;
   String artProfile;
 
-  Artworks(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
+  Artworks(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     this.isHaunted = assignHaunted(hauntedRoll); //Line 30
     this.exhibURL = exhibURL;
     this.inspecURL = inspecURL;
-    this.cursedURL = cursedURL;
     this.difficultyRating = (int)random(2); //1=Artwork will have visual hauntedness, 2==no visual hauntedness.  Ovilus is not affected
     this.artProfile = artProfile;
     setupImage(); //Perform image setup all in constructor
@@ -48,7 +47,6 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   void setupImage() {
     artwork = loadImage(exhibURL);
     artworkInspec = loadImage(inspecURL);
-    artworkCursed = loadImage(cursedURL);
   }
   void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
@@ -63,6 +61,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
 
   void inspecArt() {
+    
     loadPixels();
     artworkInspec.loadPixels();
     for (int x = 0; x < width; x++) {
@@ -148,8 +147,8 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 }
 
 class Painting extends Artworks {
-  Painting(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
-    super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
+  Painting(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
+    super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
   }
 
   void inspecArt() {
@@ -164,8 +163,8 @@ class Painting extends Artworks {
 }
 
 class Sculpture extends Artworks {
-  Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
-    super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
+  Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
+    super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
   }
   void inspecArt() {
     super.inspecArt();
@@ -177,11 +176,13 @@ class Sculpture extends Artworks {
 }
 
 class Pottery extends Artworks {
-  Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile, String cursedURL) {
-    super(hauntedRoll, exhibURL, inspecURL, artProfile, cursedURL); //Line 11
+  
+  Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
+    super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
   }
   void inspecArt() {
     super.inspecArt();
+
   }
   @Override
     void stageSwitch() {
