@@ -38,6 +38,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
       falseCount++;
     }
     stageSwitch();
+    println(correctCount + "     " + falseCount);
   }
 
   boolean assignHaunted(int num) { //whether the artwork is haunted or not is randomized
@@ -56,7 +57,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
   void stageSwitch() {
     isPrinting = true;
-     printTrigger = 0;
+    printTrigger = 0;
     //To Override
   }
 
@@ -91,9 +92,9 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
     fill(255);
     rect(paperPos.x, paperPos.y, 200, 280);
-     bs.run();
+    bs.run();
     image(printer, printerPos.x, printerPos.y);
-   
+
 
     if (isPrinting) {
 
@@ -154,7 +155,6 @@ class Painting extends Artworks {
   void inspecArt() {
     super.inspecArt();
     if (this.isHaunted && this.difficultyRating == 2) {
-      
     }
   }
   void stageSwitch() {
@@ -183,7 +183,10 @@ class Pottery extends Artworks {
   void inspecArt() {
     super.inspecArt();
   }
-  void stageSwitch() {
-   introState = 3; 
+  @Override
+    void stageSwitch() {
+    resetTextCounter();
+    resetimgCounter();
+    gameState = 5;
   }
 }

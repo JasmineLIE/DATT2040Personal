@@ -23,9 +23,6 @@ void openingScene() {
   case 2:
     gameStateManager();
     break;
-  case 3:
-    endManager();
-    break;
   }
 }
 
@@ -36,9 +33,8 @@ void openingText() {
   fill(#9D9D9D);
   text(s, width/2, 50);
   if (mousePressed && !isPressed) { //reset these variables to be used in the next scene
-    isPressed = true;
+    resetTextCounter();
     introState = 1;
-    counter = 0;
   }
 }
 
@@ -53,6 +49,15 @@ void openingSlides() {
 
 boolean isPressed = true;
 int counter = 0;
+
+void resetTextCounter() {
+  isPressed = true;
+  counter = 0;
+}
+void resetimgCounter() {
+  imgCount = 0;
+}
+
 void typeWriter(String script, int speed, color fill, int size, PVector pos) {
   textSize(size);
   fill(fill);
@@ -68,11 +73,18 @@ void typeWriter(String script, int speed, color fill, int size, PVector pos) {
 
 
 void mouseClicked() {
-  if (introState == 1 && imgCount < 3 && !isPressed) {
-    isPressed = true;
-    counter = 0;
+  if ((introState == 1 && imgCount < opDialogue.length && !isPressed) || (gameState == 5 && imgCount< edDialogue.length && !isPressed)) {
+    resetTextCounter();
     imgCount++;
-  } else if (imgCount == 3) {
+  }
+
+  if (introState == 1 && imgCount >= opDialogue.length) {
     introState = 2;
   }
+
+  if (gameState==5 && imgCount >= edDialogue.length) {
+    resetTextCounter();
+    endReveal = true;
+  }
+
 }

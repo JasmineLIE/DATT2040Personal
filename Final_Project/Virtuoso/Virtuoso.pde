@@ -11,7 +11,7 @@ void setup() {
   noSmooth();
   imageMode(CENTER);
   size(1000, 800, P2D);
-  
+
   mono=createFont("jupiterc.ttf", 24);
   textAlign(CENTER, CENTER);
   textFont(mono);
@@ -36,6 +36,11 @@ void setup() {
     opImages[i] = loadImage(fileName);
   }
 
+  edImages = new PImage[5];
+  for (int i = 0; i < 5; i++) {
+    String fileName = "img/ed/ed"+i+".png";
+    edImages[i] = loadImage(fileName);
+  }
   openingSong = new SoundFile(this, "music/TheVirtuoso.mp3");
   click = new SoundFile(this, "music/click.wav");
   print = new SoundFile(this, "music/printing.wav");

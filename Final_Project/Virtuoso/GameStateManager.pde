@@ -27,6 +27,9 @@ void gameStateManager() {
   case 4:
     inspec();
     break;
+  case 5:
+    endManager();
+    break;
   }
 }
 
@@ -148,7 +151,6 @@ void navigation(PVector pos, String btnName, int num, color col) {
       }
       docClicked = false;
     }
-    
   }
 
   text(btnName, pos.x, pos.y);

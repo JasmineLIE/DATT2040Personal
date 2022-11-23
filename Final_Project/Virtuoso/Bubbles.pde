@@ -31,9 +31,9 @@ class Bubbles {
   }
 
   boolean isDead() {
-     return (lifespan < 0.0);
+    return (lifespan < 0.0);
   }
-  
+
 
   void run() {
     update();

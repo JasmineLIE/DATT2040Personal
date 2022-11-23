@@ -17,7 +17,3 @@ void transition() {
   text("V I R T U O S O", width/2, height/2); //text in the middle has a different fade out time
   decrement+=5;
 }
-
-
-
- 
