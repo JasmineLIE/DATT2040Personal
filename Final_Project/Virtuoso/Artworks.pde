@@ -1,7 +1,7 @@
 int correctCount;
 int falseCount;
 int printTrigger;
-PImage painting, sculpture, pottery, paintInspec, sculpInspec, pottInspec, cursor1, cursor2;
+PImage painting, sculpture, pottery, cursor1, cursor2;
 boolean docClicked;
 boolean isPrinting;
 boolean paperPrinted;
@@ -25,6 +25,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     this.inspecURL = inspecURL;
     this.difficultyRating = (int)random(2); //1=Artwork will have visual hauntedness, 2==no visual hauntedness.  Ovilus is not affected
     this.artProfile = artProfile;
+
     setupImage(); //Perform image setup all in constructor
   }
 
@@ -60,20 +61,26 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   }
 
 
-  void inspecArt() {
-    
+  void inspecArt(PImage art) {
+
+    flashlightInspec(art);
+
+    navigation(new PVector(150, 700), "EXHIBITION", 3, #EAE295);
+  }
+
+  void flashlightInspec(PImage art) {
     loadPixels();
-    artworkInspec.loadPixels();
+    art.loadPixels();
     for (int x = 0; x < width; x++) {
       for (int y = 0; y<height; y++) {
-        int loc = x + y*artworkInspec.width;
+        int loc = x + y*art.width;
 
-        float r = red(artworkInspec.pixels[loc]);
-        float g = green(artworkInspec.pixels[loc]);
-        float b = blue(artworkInspec.pixels[loc]);
+        float r = red(art.pixels[loc]);
+        float g = green(art.pixels[loc]);
+        float b = blue(art.pixels[loc]);
 
         float d = dist(x, y, mouseX, mouseY);
-        float adjustBrightness = map(d, 100, 500, 2, 0);
+        float adjustBrightness = map(d, 20, 300, 2, 0);
         r *= adjustBrightness;
         g *= adjustBrightness;
         b *= adjustBrightness;
@@ -83,7 +90,6 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     }
 
     updatePixels();
-    navigation(new PVector(150, 700), "EXHIBITION", 3, #EAE295);
   }
 
   void printer() {
@@ -151,9 +157,45 @@ class Painting extends Artworks {
     super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
   }
 
+
+
   void inspecArt() {
-    super.inspecArt();
-    if (this.isHaunted && this.difficultyRating == 2) {
+
+
+    if (isHaunted && difficultyRating == 1) {
+      for (int i = 0; i < 2; i++) {
+        float[][] kernel =
+          {{-1, -1, -1},
+          {-1, 8-i, -1},
+          {-1, -1, -1}, };
+
+        for (int y = 1; y < artworkInspec.height-1; y++) {
+          for (int x = 1; x <  artworkInspec.width-1; x++) {
+
+            float sum1 = y;
+            float sum2 = y;
+            float sum3 = y;
+
+            for (int ky = -1; ky <= 1; ky++) {
+              for (int kx = -1; kx <= 1; kx++) {
+
+                int pos = (y + ky)* artworkInspec.width + (x + kx);
+                float val1 = hue(artworkInspec.pixels[pos]);
+                float val2 = saturation( artworkInspec.pixels[pos]);
+                float val3 = brightness( artworkInspec.pixels[pos]);
+
+                sum1 += kernel[ky+1][kx+1] * val1;
+                sum2 += kernel[ky+1][kx+1] * val2;
+                sum3 += kernel[ky+1][kx+1] * val3;
+              }
+            }
+            artworkInspec.pixels[y*artworkInspec.width + x] = color(sum1, sum2, sum3);
+          }
+        }
+      }
+      super.inspecArt(artworkInspec);
+    } else {
+      super.inspecArt(artworkInspec);
     }
   }
   void stageSwitch() {
@@ -162,12 +204,50 @@ class Painting extends Artworks {
   }
 }
 
+float redAdjust;
 class Sculpture extends Artworks {
   Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
   }
   void inspecArt() {
-    super.inspecArt();
+    super.inspecArt(artworkInspec);
+  }
+
+  @Override
+    void flashlightInspec(PImage art) {
+    isHaunted = true;
+    difficultyRating = 1;
+
+    if (isHaunted && difficultyRating == 1) {
+
+      int s = second();
+      loadPixels();
+      if (s > random(30, 60)) redAdjust += 0.1;
+      println(s);
+      println("adjust: " + redAdjust);
+      art.loadPixels();
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y<height; y++) {
+          int loc = x + y*art.width;
+
+          float r = red(art.pixels[loc]);
+          float g = green(art.pixels[loc]);
+          float b = blue(art.pixels[loc]);
+
+          float d = dist(x, y, mouseX, mouseY);
+          float adjustBrightness = map(d, 20, 300, 2, 0);
+          r *= adjustBrightness + redAdjust;
+          g *= adjustBrightness;
+          b *= adjustBrightness;
+          color c = color(r, g, b);
+          pixels[loc] = c;
+        }
+      }
+
+      updatePixels();
+    } else {
+      super.flashlightInspec(artworkInspec);
+    }
   }
   void stageSwitch() {
     super.stageSwitch();
@@ -176,14 +256,21 @@ class Sculpture extends Artworks {
 }
 
 class Pottery extends Artworks {
-  
+
   Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
   }
-  void inspecArt() {
-    super.inspecArt();
 
+  void inspecArt() {
+    if (isHaunted && difficultyRating == 1) {
+
+      super.inspecArt(artworkInspec);
+    } else {
+      super.inspecArt(artworkInspec);
+    }
   }
+
+
   @Override
     void stageSwitch() {
     resetTextCounter();

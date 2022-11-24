@@ -32,4 +32,6 @@ void reset() {
   row = 15;
 
   decrement = 0;
+  
+  redAdjust = 0;
 }
