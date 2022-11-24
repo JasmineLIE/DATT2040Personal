@@ -13,7 +13,7 @@ SoundFile print;
 BubblesSystem bs;
 
 class Artworks { //The following attributes will be inherited by all subclasses automatically at extension
-  PImage artwork, artworkInspec, artworkCursed;
+  PImage artwork, artworkInspec, artworkOG;
   Boolean isHaunted;
   String exhibURL, inspecURL;
   int difficultyRating;
@@ -48,6 +48,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   void setupImage() {
     artwork = loadImage(exhibURL);
     artworkInspec = loadImage(inspecURL);
+    artworkOG = loadImage(inspecURL);
   }
   void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
@@ -222,7 +223,7 @@ class Sculpture extends Artworks {
 
       int s = second();
       loadPixels();
-      if (s > random(30, 60)) redAdjust += 0.1;
+      if (s > random(60, 120)) redAdjust += 0.1;
       println(s);
       println("adjust: " + redAdjust);
       art.loadPixels();
@@ -255,6 +256,7 @@ class Sculpture extends Artworks {
   }
 }
 
+int step = 100;
 class Pottery extends Artworks {
 
   Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
@@ -262,7 +264,39 @@ class Pottery extends Artworks {
   }
 
   void inspecArt() {
+    isHaunted = true;
+    difficultyRating = 1;
+
     if (isHaunted && difficultyRating == 1) {
+
+
+      loadPixels();
+      artworkInspec.loadPixels();
+
+
+      int factor1 = int(random(1, 10));
+      int factor2 = int(random(1, 10));
+      int factor3 = int(random(1, 10));
+      int factor4 = int(random(50, 100));
+
+      for (int i=0; i<artworkInspec.pixels.length; i++) {
+        if (i % factor1 == 0) {
+          artworkInspec.pixels[i] = color(factor1, factor2, factor3, factor4 );
+        } else if (i % factor2 == 0) {
+          artworkInspec.pixels[i] = color(factor1, factor2, factor3, factor4 );
+        } else if (i % factor3 == 0) {
+          artworkInspec.pixels[i] = color(factor1, factor2, factor3, factor4 );
+        } else {
+          artworkInspec.pixels[i] = artworkOG.pixels[i];
+        }
+      }
+
+      int index1 = int(random(50, artworkInspec.pixels.length));
+      int index2 = int(random(50, artworkInspec.pixels.length));
+      artworkInspec.pixels[index1] = artworkInspec.pixels[index2];
+
+
+      artworkInspec.updatePixels();
 
       super.inspecArt(artworkInspec);
     } else {
