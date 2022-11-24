@@ -1,13 +1,32 @@
 int correctCount;
 int falseCount;
 int printTrigger;
+
+// duration before triggering new note
+int duration = 50;
+
+// This variable stores the point in time when the next note should be triggered
+int trigger = millis();
+
+float val;
+float a;
+
+float attackTime = 0.001;
+float sustainTime = 0.04;
+float sustainLevel = 0.3;
+float releaseTime = 0.2;
+float output;
+
 PImage painting, sculpture, pottery, cursor1, cursor2;
+
 boolean docClicked;
 boolean isPrinting;
 boolean paperPrinted;
+
 PVector acc;
 PVector printerPos;
 PVector paperPos;
+
 SoundFile print;
 
 BubblesSystem bs;
@@ -50,6 +69,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     artworkInspec = loadImage(inspecURL);
     artworkOG = loadImage(inspecURL);
   }
+
   void drawImage() { //contains access to the close inspection method which will be overridden per each artwork
     image(artwork, width/2, height/2);
   }
@@ -151,6 +171,47 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     navigation(new PVector(800, 200), "PASS", 1, #02F54D);
     navigation(new PVector(800, 400), "DENY", 1, #F50202);
   }
+
+
+  void ovilus() {
+
+    if (mousePressed && dist(mouseX, mouseY, width*0.82, height*0.80) <= 600) {
+      println(dist(mouseX, mouseY, width*0.82, height*0.80));
+      buttonLock = true;
+      a = atan2(mouseY-height/2, mouseX-width/2);
+      val = a;
+      output = map(a, -PI, PI, 1, 0);
+
+      if (millis() > trigger) {
+
+        sine.play(midiToFreq(int(random(10, 250*output))), 1);
+
+        // The envelope gets triggered with the oscillator as input and the times and
+        // levels we defined earlier
+        env.play(sine, attackTime, sustainTime, sustainLevel, releaseTime);
+
+        trigger = millis() + duration;
+      }
+    } else {
+      buttonLock = false;
+    }
+    pushMatrix();
+    translate(width*0.82, height*0.80);
+    rotate(-HALF_PI);
+
+    pushMatrix();
+
+    rotate(val);
+    fill(#AF7FAA);
+    circle(0, 0, 130);
+    fill(#392C37);
+    rect(0, -5, 110, 10);
+    popMatrix();
+
+
+    popMatrix();
+    println(val);
+  }
 }
 
 class Painting extends Artworks {
@@ -216,14 +277,12 @@ class Sculpture extends Artworks {
 
   @Override
     void flashlightInspec(PImage art) {
-    isHaunted = true;
-    difficultyRating = 1;
 
     if (isHaunted && difficultyRating == 1) {
 
       int s = second();
       loadPixels();
-      if (s > random(60, 120)) redAdjust += 0.1;
+      if (s > random(40, 80)) redAdjust += 0.1;
       println(s);
       println("adjust: " + redAdjust);
       art.loadPixels();
@@ -264,8 +323,6 @@ class Pottery extends Artworks {
   }
 
   void inspecArt() {
-    isHaunted = true;
-    difficultyRating = 1;
 
     if (isHaunted && difficultyRating == 1) {
 
@@ -311,4 +368,9 @@ class Pottery extends Artworks {
     resetimgCounter();
     gameState = 5;
   }
+}
+
+// This helper function calculates the respective frequency of a MIDI note
+float midiToFreq(int note) {
+  return (pow(2, ((note-69)/12.0))) * 440; //the higher the value, the higher the note
 }

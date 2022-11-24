@@ -18,7 +18,7 @@ void reset() {
 
   songTrigger = 0;
   gameState = 0;
-  buttonVisibility = true;
+  buttonLock = false;
 
   artState = "painting";
 
@@ -34,4 +34,7 @@ void reset() {
   decrement = 0;
   
   redAdjust = 0;
+  
+  val = 0;
+  a = 0;
 }

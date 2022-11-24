@@ -1,5 +1,8 @@
 import processing.sound.*;
 
+SinOsc sine;
+Env env;
+
 Painting paintObj;
 Sculpture sculpObj;
 Pottery pottObj;
@@ -7,6 +10,13 @@ PFont mono;
 boolean cursorInspec = false;
 
 void setup() {
+
+  // Create triangle wave and start it
+  sine = new SinOsc(this);
+
+  // Create the envelope
+  env = new Env(this);
+
   noCursor();
   noSmooth();
   imageMode(CENTER);
@@ -16,7 +26,7 @@ void setup() {
   textAlign(CENTER, CENTER);
   textFont(mono);
 
-  reset(); //for replayability! 
+  reset(); //for replayability!
 
   office = loadImage("img/officeDesk.png");
   ovilus = loadImage("img/ovilus.png");

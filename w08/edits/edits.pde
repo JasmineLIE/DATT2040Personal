@@ -29,7 +29,7 @@ void draw() {
   if (mousePressed) {
     if (millis() > trigger) {
 
-      sine.play(midiToFreq(int(random(10, 90))), 0.1);
+      sine.play(midiToFreq(int(random(10, 90))), 1);
 
       // The envelope gets triggered with the oscillator as input and the times and
       // levels we defined earlier

@@ -3,7 +3,7 @@ PImage office, ovilus, titleScreen, button, printer, paper;
 SoundFile openingSong, click;
 int songTrigger; //create this so that the intro song can play, set to 0 for now, so that it always plays after the intro no matter how long the player takes
 int gameState;
-boolean buttonVisibility;
+boolean buttonLock;
 
 
 
@@ -85,6 +85,18 @@ void office() {
 void ovilus() {
   image(ovilus, width/2, height/2);
   navigation(new PVector(200, 725), "EXHIBITION", 3, #EAE295);
+  
+    switch (artState) {
+  case "painting":
+    paintObj.ovilus();
+    break;
+  case "sculpture":
+    sculpObj.ovilus();
+    break;
+  case "pottery":
+    pottObj.ovilus();
+    break;
+  }
 }
 
 void titleScreen() {
@@ -111,7 +123,7 @@ void navigation(PVector pos, String btnName, int num, color col) {
     tint(#FFD95A);
     image(button, pos.x, pos.y);
     noTint();
-    if (mousePressed) {
+    if (mousePressed && !buttonLock) {
       if (btnName == "PASS") {
         switch (artState) {
         case "painting":
