@@ -27,6 +27,7 @@ PVector acc;
 PVector printerPos;
 PVector paperPos;
 
+
 SoundFile print;
 
 BubblesSystem bs;
@@ -174,17 +175,22 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
 
   void ovilus() {
+    noFill();
+    stroke(255);
+    
+    rect(728, 132, 934, 276);
+    println(mouseX + "," +mouseY);
 
     if (mousePressed && dist(mouseX, mouseY, width*0.82, height*0.80) <= 600) {
       println(dist(mouseX, mouseY, width*0.82, height*0.80));
-      buttonLock = true;
+
       a = atan2(mouseY-height/2, mouseX-width/2);
       val = a;
       output = map(a, -PI, PI, 1, 0);
 
       if (millis() > trigger) {
 
-        sine.play(midiToFreq(int(random(10, 250*output))), 1);
+        sine.play(midiToFreq(int(250*output)), 1);
 
         // The envelope gets triggered with the oscillator as input and the times and
         // levels we defined earlier
@@ -192,8 +198,6 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
         trigger = millis() + duration;
       }
-    } else {
-      buttonLock = false;
     }
     pushMatrix();
     translate(width*0.82, height*0.80);

@@ -18,7 +18,6 @@ void reset() {
 
   songTrigger = 0;
   gameState = 0;
-  buttonLock = false;
 
   artState = "painting";
 
@@ -37,4 +36,6 @@ void reset() {
   
   val = 0;
   a = 0;
+  
+ 
 }
