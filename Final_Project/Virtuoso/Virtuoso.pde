@@ -36,6 +36,7 @@ void setup() {
   paper = loadImage("img/deskZoom.png");
   cursor1 = loadImage("img/cursorDefault.png");
   cursor2 = loadImage("img/cursorPrompt.png");
+  aboutScreen = loadImage("img/aboutScreen.png");
 
   bs = new BubblesSystem(new PVector(475, 325));
 

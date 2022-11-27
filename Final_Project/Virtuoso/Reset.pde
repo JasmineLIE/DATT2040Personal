@@ -2,7 +2,8 @@ void reset() {
   paintObj = new Painting((int)random(2), "img/exhibit1.png", "img/exhibit1Inspec.png", "txt/painting.txt");
   sculpObj = new Sculpture( (int)random(2), "img/exhibit2.png", "img/exhibit2Inspec.png", "txt/sculpture.txt");
   pottObj = new Pottery((int)random(2), "img/exhibit3.png", "img/exhibit3Inspec.png", "txt/pottery.txt");
-
+  
+  
   docClicked = false;
   isPrinting = true;
   paperPrinted = false;
@@ -41,5 +42,5 @@ void reset() {
   phi  = 0;
   tx = -999;
   ty  = -999;
-  thresh = 0;
+  thresh = random(-3, 3);
 }

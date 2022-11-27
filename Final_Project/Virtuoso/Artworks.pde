@@ -34,6 +34,21 @@ PVector acc;
 PVector printerPos;
 PVector paperPos;
 
+String[] words1 = {"Loki", "Grey", "Winter", "Solomon", "Shaw", "Aitne", "Morgan"};
+String[] words2 = {"Fair", "Lovely", "Wait", "Horrid", "Void", "Longing"};
+String[] words3 = {"Drown", "No", "Fall", "Peaceful", "Painful", "Quiet"};
+
+String[] paintWords1 = {"Doyle", "Judas", "Vance", "Beatrice", "Hyperia", "Angelo"};
+String[] paintWords2 = {"Red", "Traitor", "Synod", "Vandalised", "Letter"};
+String[] paintWords3 = {"Betrayel", "Murder", "Incident", "Foreshadow", "Censor", "Purge"};
+
+String[] sculpWords1 = {"Athena", "Amer", "Ahdia", "Memphis"};
+String[] sculpWords2 = {"Golden", "Stun", "Solid", "Cold", "Strong"};
+String[] sculpWords3 = {"Pride", "Scourge", "Midas", "Froze"};
+
+String[] pottWords1 = {"Lucina", "Odhran", "Gift", "Eris"};
+String[] pottWords2 = {"Greedy", "Gifted", "Sick", "Warded"};
+String[] pottWords3 = {"Spun", "Spat", "Visions", "Dreamt"};
 
 SoundFile print;
 
@@ -46,6 +61,8 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   int difficultyRating;
   String artProfile;
   String[] ovilusWords = new String[3];
+  int ovilusCount1 = 0, ovilusCount2 = 0, ovilusCount3 = 0;
+  int wordPhase = 0;
 
   Artworks(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     this.isHaunted = assignHaunted(hauntedRoll); //Line 30
@@ -53,7 +70,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     this.inspecURL = inspecURL;
     this.difficultyRating = (int)random(2); //1=Artwork will have visual hauntedness, 2==no visual hauntedness.  Ovilus is not affected
     this.artProfile = artProfile;
-    
+
     setupImage(); //Perform image setup all in constructor
   }
 
@@ -89,19 +106,19 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     printTrigger = 0;
     //To Override
   }
-  
+
   String[] wordGen(String [] words1, String[] words2, String[] words3, String[] badWords1, String[] badWords2, String[] badWords3) {
     String[] ovilusWords = new String[3];
     if (this.isHaunted) {
-      ovilusWords[1] = badWords1[(int)random(0, badWords1.length)];
-      ovilusWords[2] = badWords2[(int)random(0, badWords2.length)];
-      ovilusWords[3] = badWords3[(int)random(0, badWords3.length)];
+      ovilusWords[0] = badWords1[(int)random(0, badWords1.length)];
+      ovilusWords[1] = badWords2[(int)random(0, badWords2.length)];
+      ovilusWords[2] = badWords3[(int)random(0, badWords3.length)];
     } else {
-      ovilusWords[1] = words1[(int)random(0, words1.length)];
-      ovilusWords[2] = words2[(int)random(0, words2.length)];
-      ovilusWords[3] = words3[(int)random(0, words3.length)];
+      ovilusWords[0] = words1[(int)random(0, words1.length)];
+      ovilusWords[1] = words2[(int)random(0, words2.length)];
+      ovilusWords[2] = words3[(int)random(0, words3.length)];
     }
-    
+
     return ovilusWords;
   }
 
@@ -199,18 +216,38 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
   void ovilus() {
 
-    if (frameCount % 30 == 0) {
-      thresh = random(-2, 2);
-      println("thresh " + thresh);
-    }
-
+    textAlign(LEFT);
 
     if (mousePressed && dist(mouseX, mouseY, width*0.82, height*0.80) <= 600) {
-      println(dist(mouseX, mouseY, width*0.82, height*0.80));
+ 
 
       a = atan2(mouseY-height/2, mouseX-width/2);
       val = a;
       output = map(a, -PI, PI, 1, 0);
+
+      if (round(val) == round(thresh)) {
+        click.play();
+
+        thresh = random(-3, 3);
+
+        switch (wordPhase) {
+        case 0:
+          ovilusCount1++;
+          if (ovilusCount1 >= ovilusWords[wordPhase].length())
+            wordPhase++;
+          break;
+        case 1:
+          ovilusCount2++;
+          if (ovilusCount2 >= ovilusWords[wordPhase].length())
+            wordPhase++;
+          break;
+        case 2:
+          ovilusCount3++;
+          if (ovilusCount3 >= ovilusWords[wordPhase].length())
+            wordPhase++;
+          break;
+        }
+      }
 
 
       if (millis() > trigger) {
@@ -225,56 +262,64 @@ class Artworks { //The following attributes will be inherited by all subclasses 
       }
     }
 
-    pushMatrix();
-    fill(255);
+      pushMatrix();
+      fill(255);
 
-    scale(0.25);
-    translate(2950, 690);
-    for (int t = 0; t < 360*2; t++) {
-      phi-=0.01;
-      //  offset +  amplitude  * sin of omega * t(ime) + phi(phase)
-      f = 180    +  val*80       * sin(radians(t*(omega/2)+phi));
+      scale(0.25);
+      translate(2950, 690);
+      for (int t = 0; t < 360*2; t++) {
+        phi-=0.01;
+        //  offset +  amplitude  * sin of omega * t(ime) + phi(phase)
+        f = 180    +  val*80       * sin(radians(t*(omega/2)+phi));
 
-      if (tx < (360*2)-1) {
-        line(t, f, tx*val, ty*val);
-        tx = t;
-        ty = f;
-      } else {
-        tx = 0;
-        ty = 0;
+        if (tx < (360*2)-1) {
+          line(t, f, tx*val, ty*val);
+          tx = t;
+          ty = f;
+        } else {
+          tx = 0;
+          ty = 0;
+        }
+
+        ellipse(t, f, 10, 10);
       }
 
-      ellipse(t, f, 10, 10);
-    }
+      popMatrix();
 
-    popMatrix();
+      pushMatrix();
+      translate(width*0.82, height*0.80);
+      rotate(-HALF_PI);
 
-    pushMatrix();
-    translate(width*0.82, height*0.80);
-    rotate(-HALF_PI);
+      pushMatrix();
 
-    pushMatrix();
+      rotate(val);
+      fill(#AF7FAA);
+      circle(0, 0, 130);
+      fill(#392C37);
+      rect(0, -5, 110, 10);
+      popMatrix();
 
-    rotate(val);
-    fill(#AF7FAA);
-    circle(0, 0, 130);
-    fill(#392C37);
-    rect(0, -5, 110, 10);
-    popMatrix();
+      popMatrix();
 
-    popMatrix();
-
-    println(val);
-    textAlign(LEFT);
-    text("What is your name?", 110, 100);
-    text("How are you?", 110, 300);
-    text("Can you tell me how you passed?", 110, 500);
+  
+      fill(#746666);
+      text("What is your name?", 110, 100);
+      text("How are you?", 110, 300);
+      text("Can you tell me how you passed?", 110, 500);
+      
+      textSize(50);
+      fill(#3E3131);
+      text(ovilusWords[0].substring(0, ovilusCount1), 110, 200);
+      text(ovilusWords[1].substring(0, ovilusCount2), 110, 400);
+      text(ovilusWords[2].substring(0, ovilusCount3), 110, 600);
+    
   }
 }
 
 class Painting extends Artworks {
   Painting(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+    ovilusWords = wordGen(words1, words2, words3, paintWords1, paintWords2, paintWords3);
   }
 
 
@@ -328,6 +373,7 @@ float redAdjust;
 class Sculpture extends Artworks {
   Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+    ovilusWords = wordGen(words1, words2, words3, sculpWords1, sculpWords2, sculpWords3);
   }
   void inspecArt() {
     super.inspecArt(artworkInspec);
@@ -341,8 +387,7 @@ class Sculpture extends Artworks {
       int s = second();
       loadPixels();
       if (s > random(40, 80)) redAdjust += 0.1;
-      println(s);
-      println("adjust: " + redAdjust);
+
       art.loadPixels();
       for (int x = 0; x < width; x++) {
         for (int y = 0; y<height; y++) {
@@ -373,7 +418,7 @@ class Sculpture extends Artworks {
   }
 }
 
-int step = 100;
+
 class Pottery extends Artworks {
 
   Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {

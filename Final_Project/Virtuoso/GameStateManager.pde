@@ -1,5 +1,5 @@
 String artState;
-PImage office, ovilus, titleScreen, button, printer, paper;
+PImage office, ovilus, titleScreen, button, printer, paper, aboutScreen;
 SoundFile openingSong, click;
 int songTrigger; //create this so that the intro song can play, set to 0 for now, so that it always plays after the intro no matter how long the player takes
 int gameState;
@@ -29,6 +29,10 @@ void gameStateManager() {
     break;
   case 5:
     endManager();
+    break;
+
+  case 6:
+    aboutScreen();
     break;
   }
 }
@@ -85,8 +89,8 @@ void office() {
 void ovilus() {
   image(ovilus, width/2, height/2);
   navigation(new PVector(200, 725), "EXHIBITION", 3, #EAE295);
-  
-    switch (artState) {
+
+  switch (artState) {
   case "painting":
     paintObj.ovilus();
     break;
@@ -113,6 +117,11 @@ void titleScreen() {
   navigation(new PVector(0+(width*0.75), 300), "ABOUT", 5, #EAE295);
 }
 
+void aboutScreen() {
+  image(aboutScreen, width/2, height/2);
+  navigation(new PVector(200, 725), "BACK", 3, #EAE295);
+}
+
 void navigation(PVector pos, String btnName, int num, color col) {
 
   image(button, pos.x, pos.y);
@@ -124,43 +133,44 @@ void navigation(PVector pos, String btnName, int num, color col) {
     image(button, pos.x, pos.y);
     noTint();
     if (mousePressed) {
-      if (btnName == "PASS") {
-        switch (artState) {
-        case "painting":
-          paintObj.verification(true);
-          break;
-        case "sculpture" :
-          sculpObj.verification(true);
-          break;
-        case "pottery" :
-          pottObj.verification(true);
-          break;
+      if (btnName == "ABOUT")
+        if (btnName == "PASS") {
+          switch (artState) {
+          case "painting":
+            paintObj.verification(true);
+            break;
+          case "sculpture" :
+            sculpObj.verification(true);
+            break;
+          case "pottery" :
+            pottObj.verification(true);
+            break;
+          }
+          click.play();
+          paperPrinted = false;
+          printerPosReset();
+        } else if (btnName == "DENY") {
+          switch (artState) {
+          case "painting":
+            paintObj.verification(false);
+            break;
+          case "sculpture" :
+            sculpObj.verification(false);
+            break;
+          case "pottery" :
+            pottObj.verification(false);
+            break;
+          }
+          click.play();
+          paperPrinted = false;
+          printerPosReset();
+        } else {
+          decrement = 0;
+          click.play();
+          gameState = num;
+          openingSong.stop();
+          openingSong.removeFromCache();
         }
-        click.play();
-        paperPrinted = false;
-        printerPosReset();
-      } else if (btnName == "DENY") {
-        switch (artState) {
-        case "painting":
-          paintObj.verification(false);
-          break;
-        case "sculpture" :
-          sculpObj.verification(false);
-          break;
-        case "pottery" :
-          pottObj.verification(false);
-          break;
-        }
-        click.play();
-        paperPrinted = false;
-        printerPosReset();
-      } else {
-        decrement = 0;
-        click.play();
-        gameState = num;
-        openingSong.stop();
-        openingSong.removeFromCache();
-      }
       docClicked = false;
     }
   }
