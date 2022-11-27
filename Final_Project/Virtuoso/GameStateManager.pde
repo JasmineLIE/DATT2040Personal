@@ -114,12 +114,12 @@ void titleScreen() {
     songTrigger = second() + (int)openingSong.duration();
   }
   navigation (new PVector (width/4, 300), "PLAY", 1, #EAE295);
-  navigation(new PVector(0+(width*0.75), 300), "ABOUT", 5, #EAE295);
+  navigation(new PVector(0+(width*0.75), 300), "ABOUT", 6, #EAE295);
 }
 
 void aboutScreen() {
   image(aboutScreen, width/2, height/2);
-  navigation(new PVector(200, 725), "BACK", 3, #EAE295);
+  navigation(new PVector(200, 725), "BACK", 0, #EAE295);
 }
 
 void navigation(PVector pos, String btnName, int num, color col) {
@@ -133,7 +133,6 @@ void navigation(PVector pos, String btnName, int num, color col) {
     image(button, pos.x, pos.y);
     noTint();
     if (mousePressed) {
-      if (btnName == "ABOUT")
         if (btnName == "PASS") {
           switch (artState) {
           case "painting":
