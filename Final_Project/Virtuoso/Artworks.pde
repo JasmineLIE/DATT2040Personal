@@ -17,6 +17,13 @@ float sustainLevel = 0.3;
 float releaseTime = 0.2;
 float output;
 
+float f;
+float omega;
+float phi;
+float tx, ty;
+float thresh;
+
+
 PImage painting, sculpture, pottery, cursor1, cursor2;
 
 boolean docClicked;
@@ -38,6 +45,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
   String exhibURL, inspecURL;
   int difficultyRating;
   String artProfile;
+  String[] ovilusWords = new String[3];
 
   Artworks(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
     this.isHaunted = assignHaunted(hauntedRoll); //Line 30
@@ -45,7 +53,7 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     this.inspecURL = inspecURL;
     this.difficultyRating = (int)random(2); //1=Artwork will have visual hauntedness, 2==no visual hauntedness.  Ovilus is not affected
     this.artProfile = artProfile;
-
+    
     setupImage(); //Perform image setup all in constructor
   }
 
@@ -80,6 +88,21 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     isPrinting = true;
     printTrigger = 0;
     //To Override
+  }
+  
+  String[] wordGen(String [] words1, String[] words2, String[] words3, String[] badWords1, String[] badWords2, String[] badWords3) {
+    String[] ovilusWords = new String[3];
+    if (this.isHaunted) {
+      ovilusWords[1] = badWords1[(int)random(0, badWords1.length)];
+      ovilusWords[2] = badWords2[(int)random(0, badWords2.length)];
+      ovilusWords[3] = badWords3[(int)random(0, badWords3.length)];
+    } else {
+      ovilusWords[1] = words1[(int)random(0, words1.length)];
+      ovilusWords[2] = words2[(int)random(0, words2.length)];
+      ovilusWords[3] = words3[(int)random(0, words3.length)];
+    }
+    
+    return ovilusWords;
   }
 
 
@@ -175,11 +198,12 @@ class Artworks { //The following attributes will be inherited by all subclasses 
 
 
   void ovilus() {
-    noFill();
-    stroke(255);
-    
-    rect(728, 132, 934, 276);
-    println(mouseX + "," +mouseY);
+
+    if (frameCount % 30 == 0) {
+      thresh = random(-2, 2);
+      println("thresh " + thresh);
+    }
+
 
     if (mousePressed && dist(mouseX, mouseY, width*0.82, height*0.80) <= 600) {
       println(dist(mouseX, mouseY, width*0.82, height*0.80));
@@ -188,9 +212,10 @@ class Artworks { //The following attributes will be inherited by all subclasses 
       val = a;
       output = map(a, -PI, PI, 1, 0);
 
+
       if (millis() > trigger) {
 
-        sine.play(midiToFreq(int(250*output)), 1);
+        sine.play(midiToFreq(int(200*output)), 1);
 
         // The envelope gets triggered with the oscillator as input and the times and
         // levels we defined earlier
@@ -199,6 +224,31 @@ class Artworks { //The following attributes will be inherited by all subclasses 
         trigger = millis() + duration;
       }
     }
+
+    pushMatrix();
+    fill(255);
+
+    scale(0.25);
+    translate(2950, 690);
+    for (int t = 0; t < 360*2; t++) {
+      phi-=0.01;
+      //  offset +  amplitude  * sin of omega * t(ime) + phi(phase)
+      f = 180    +  val*80       * sin(radians(t*(omega/2)+phi));
+
+      if (tx < (360*2)-1) {
+        line(t, f, tx*val, ty*val);
+        tx = t;
+        ty = f;
+      } else {
+        tx = 0;
+        ty = 0;
+      }
+
+      ellipse(t, f, 10, 10);
+    }
+
+    popMatrix();
+
     pushMatrix();
     translate(width*0.82, height*0.80);
     rotate(-HALF_PI);
@@ -212,9 +262,13 @@ class Artworks { //The following attributes will be inherited by all subclasses 
     rect(0, -5, 110, 10);
     popMatrix();
 
-
     popMatrix();
+
     println(val);
+    textAlign(LEFT);
+    text("What is your name?", 110, 100);
+    text("How are you?", 110, 300);
+    text("Can you tell me how you passed?", 110, 500);
   }
 }
 

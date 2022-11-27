@@ -31,11 +31,15 @@ void reset() {
   row = 15;
 
   decrement = 0;
-  
+
   redAdjust = 0;
-  
+
   val = 0;
   a = 0;
-  
- 
+
+  omega  = 1;
+  phi  = 0;
+  tx = -999;
+  ty  = -999;
+  thresh = 0;
 }
