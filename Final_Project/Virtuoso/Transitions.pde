@@ -3,6 +3,9 @@ int row;
 int stepx, stepy;
 int decrement;
 
+/**
+ * This method draws a transition between scenes using a grid
+ */
 void transition() {
   noStroke();
   float opacityShift = map(255-decrement, 0, 255, 0, 300);

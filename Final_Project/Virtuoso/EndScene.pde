@@ -10,6 +10,10 @@ String goodED = "Things are finally looking up!";
 String badED = "Yet... why do I still feel something off?";
 boolean endReveal;
 float tintOp;
+
+/**
+ * This method drwas out the end portion of the game, including pictures, text, and a different end card based on how much the Player got corrects vs wrong
+ */
 void endManager() {
   background(0);
   tint(255, tintOp);

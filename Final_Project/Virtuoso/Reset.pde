@@ -1,3 +1,6 @@
+/**
+ * This method resets all the global variables, essenstially restarting the game
+ */
 void reset() {
   paintObj = new Painting((int)random(2), "img/exhibit1.png", "img/exhibit1Inspec.png", "txt/painting.txt");
   sculpObj = new Sculpture( (int)random(2), "img/exhibit2.png", "img/exhibit2Inspec.png", "txt/sculpture.txt");
