@@ -380,7 +380,7 @@ class Painting extends Artworks {
    * This is the constructor that generates a Painting object
    */
   Painting(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+    super(hauntedRoll, exhibURL, inspecURL, artProfile); 
     ovilusWords = wordGen(words1, words2, words3, paintWords1, paintWords2, paintWords3);
   }
 
@@ -445,7 +445,7 @@ class Sculpture extends Artworks {
    * This is the constructor that generates a Sculpture object
    */
   Sculpture(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+    super(hauntedRoll, exhibURL, inspecURL, artProfile); 
     ovilusWords = wordGen(words1, words2, words3, sculpWords1, sculpWords2, sculpWords3);
   }
 
@@ -510,7 +510,7 @@ class Pottery extends Artworks {
    * This constructor makes a Pottery object
    */
   Pottery(int hauntedRoll, String exhibURL, String inspecURL, String artProfile) {
-    super(hauntedRoll, exhibURL, inspecURL, artProfile); //Line 11
+    super(hauntedRoll, exhibURL, inspecURL, artProfile); 
     ovilusWords = wordGen(words1, words2, words3, pottWords1, pottWords2, pottWords3);
   }
 
