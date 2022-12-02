@@ -160,8 +160,12 @@ void navigation(PVector pos, String btnName, int num, color col) {
     tint(#FFD95A);
     image(button, pos.x, pos.y);
     noTint();
-    
+
     if (mousePressed) {
+      if (btnName == "PLAY") {
+        openingSong.stop();
+        openingSong.removeFromCache();
+      }
       if (btnName == "PASS") {
         switch (artState) { //sends true value into verification function of the current object
         case "painting":
@@ -196,8 +200,6 @@ void navigation(PVector pos, String btnName, int num, color col) {
         decrement = 0;
         click.play();
         gameState = num;
-        openingSong.stop();
-        openingSong.removeFromCache();
       }
       docClicked = false;
     }
